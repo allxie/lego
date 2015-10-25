@@ -1,0 +1,30 @@
+#main {
+            width: 510px;
+            min-height: 200px;
+            position: relative;
+        }
+         
+        #items {
+            left: 222px;
+        }
+ 
+        #dropbox {
+            left: 424px;
+        }
+         
+        #items, #dropbox {
+            position: absolute;
+            width: 200px;
+            min-height: 260px;
+            border: 2px solid black;
+        }
+ 
+        div.item {
+            float: left;
+            min-width: 160px;
+            min-height: 30px;
+            border: 2px solid rgb(5,161,245);
+            margin: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }

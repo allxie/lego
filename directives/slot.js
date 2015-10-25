@@ -9,7 +9,6 @@ var Slot = function () {
       });
 
       element.bind("drop", function(eventObject) {
-           
         // invoke controller/scope move method
         scope.moveToBox(parseInt(eventObject.originalEvent.dataTransfer.getData("text")));
 

@@ -6,6 +6,7 @@
 	<script src="directives/brick.js"></script>
 	<script src="directives/slot.js"></script>
 	<script src="app.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
 
 
 	<title>LeGo!</title>
@@ -14,6 +15,25 @@
 <body ng-app="leGo">
 	<div ng-controller="MainCtrl">
 		{{award}}
+
+		<div id="items">
+            <div style="border-bottom: 2px solid black">
+                <b>Items</b>
+            </div>
+            <div ng-repeat="item in items">
+                <!-- usage of the Draggable directive -->
+                <div brick="true" class="item" itemid="{{item.id}}">{{item.id}}. {{item.name}}</div>
+            </div>
+        </div>
+        <!-- usage of the DropTarget directive -->
+        <div id="dropbox" slot="true">
+            <div style="border-bottom: 2px solid black">
+                <b>Dropbox</b>
+            </div>
+            <div ng-repeat="item in dropped">
+                <div class="item">{{item.id}}. {{item.name}}</div>
+            </div>
+        </div>
 	</div>
 </body>
 </html>
