@@ -4,7 +4,7 @@ angular.module('leGo', [])
 		$scope.dropped = [];
 
 		$scope.items = [
-	    {id: 1, name: "Microwave"}, 
+	    {id: 1, name: "Microwave"},
 	    {id: 2, name: "Dishwasher" },
 	    {id: 3, name: "Phone" },
 	    {id: 4, name: "Punching Bag" }

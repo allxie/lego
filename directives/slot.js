@@ -10,7 +10,8 @@ var Slot = function () {
 
       element.bind("drop", function(eventObject) {
         // invoke controller/scope move method
-        scope.moveToBox(parseInt(eventObject.originalEvent.dataTransfer.getData("text")));
+        console.log("event object", eventObject);
+        scope.moveToBox(parseInt(eventObject.dataTransfer.getData("text")));
 
         // cancel actual UI element from dropping, since the angular will recreate a the UI element
         eventObject.preventDefault();

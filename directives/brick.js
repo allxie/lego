@@ -6,7 +6,7 @@ var Brick = function() {
       element.attr("draggable", true);
 
       element.bind("dragstart", function(eventObject) {
-        eventObject.originalEvent.dataTransfer.setData("text", attributes.itemid);
+        eventObject.dataTransfer.setData("text", attributes.itemid);
       });
     }
   };
