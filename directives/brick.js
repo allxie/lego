@@ -2,7 +2,7 @@ var Brick = function() {
 
   return {
     restrict: "A",
-    link: function(scope, element, attributes, ctlr) {
+    link: function(scope, element, attributes, ctrl) {
       element.attr("draggable", true);
 
       element.bind("dragstart", function(eventObject) {

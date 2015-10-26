@@ -1,19 +1,18 @@
 #main {
-            width: 510px;
+            width: 1000px;
             min-height: 200px;
             position: relative;
         }
-         
+
         #items {
             left: 222px;
         }
  
-        #dropbox {
-            left: 424px;
+        .dropbox {
         }
-         
-        #items, #dropbox {
-            position: absolute;
+
+        #items, .dropbox {
+            /*position: absolute;*/
             width: 200px;
             min-height: 260px;
             border: 2px solid black;
