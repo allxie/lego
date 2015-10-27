@@ -3,7 +3,8 @@ var Slot = function () {
   return {
     restrict: "A",
     link: function (scope, element, attributes, ctlr) {
-      console.log(element);
+
+      console.log("elementaaal, watson, " , element[0]);
       var target = angular.element(element).attr("id");
       console.log("ID", target);
 

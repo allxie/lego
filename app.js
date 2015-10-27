@@ -1,7 +1,7 @@
 angular.module('leGo', [])
 	.controller('MainCtrl', ['$scope', function($scope, $index){
 		$scope.award = "a word";
-		$scope.dropTarget = {"s1": "hello", "s2": []};
+		$scope.dropTarget = {'s1': [], 's2': []};
 
 		$scope.items = [
 	    {id: 1, color: "blue", width: 2},
@@ -16,7 +16,7 @@ angular.module('leGo', [])
             if (item.id == blockId) {
                 // add to dropped array
                 console.log("target to", targetId);
-                // $scope.dropTarget[targetId].push(item);
+                $scope.dropTarget[targetId].push(item);
                 console.log("Drop target", $scope.dropTarget);
                 // remove from items array
                 $scope.items.splice(index, 1);
@@ -29,5 +29,7 @@ angular.module('leGo', [])
 	}]) // end MainCtrl
 
 	.directive("brick", Brick)
-	.directive("slot", Slot);
+	.directive("slot", Slot)
+
+	;
 //// other controllers
