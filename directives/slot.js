@@ -1,3 +1,4 @@
+//This is the version we're working on ng-repeat
 var Slot = function () {
 
   return {
