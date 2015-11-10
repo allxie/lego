@@ -2,10 +2,12 @@ angular.module('leGo', [])
 	.controller('MainCtrl', ['$scope', function($scope, $index){
 		$scope.foobar = 2;
 		$scope.award = "a word";
-		$scope.dropTarget = {'s1': [{id: 1, color: "blue", width: 2},
-	    {id: 2, color: "green", width: 2},
-	    {id: 3, color: "orange", width: 2},
-	    {id: 4, color: "red", width: 2}], 's2': [], 's3': [], 's4': [], 's5': [], 's6': []};
+		$scope.dropTarget = {'s1': [], 's2': [], 's3': [], 's4': [], 's5': [], 's6': []};
+
+// {id: 1, color: "blue", width: 2},
+	    // {id: 2, color: "green", width: 2},
+	    // {id: 3, color: "orange", width: 2},
+	    // {id: 4, color: "red", width: 2}
 
 		$scope.items = [
 	    {id: 1, color: "blue", width: 2},
@@ -14,7 +16,9 @@ angular.module('leGo', [])
 	    {id: 4, color: "red", width: 2}
     					];
 
-    $scope.moveToBox = function(blockId, targetId) {
+    $scope.moveToBox = function(blockId, from, targetId) {
+    		console.log("block id, targetID", blockId, targetId);
+    		console.log("FROM RUSSIA WITH LOVE : ", from);
         for (var index = 0; index < $scope.items.length; index++) {
             var item = $scope.items[index];
             if (item.id == blockId) {

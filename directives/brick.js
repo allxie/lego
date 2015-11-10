@@ -7,6 +7,10 @@ var Brick = function() {
 
       element.bind("dragstart", function(eventObject) {
         eventObject.dataTransfer.setData("text", attributes.itemid);
+        eventObject.dataTransfer.setData("from", eventObject.path[2].id);
+
+      	console.log("dragstart event object", eventObject);
+
       });
     }
   };
