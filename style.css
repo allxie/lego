@@ -4,26 +4,31 @@
             position: relative;
         }
 
-        #items {
-            left: 222px;
-        }
+#items {
+    left: 222px;
+}
  
-        .dropbox {
-        }
+.dropbox {
+}
 
-        #items, .dropbox {
-            /*position: absolute;*/
-            width: 200px;
-            min-height: 260px;
-            border: 2px solid black;
-        }
- 
-        div.item {
-            float: left;
-            min-width: 160px;
-            min-height: 30px;
-            border: 2px solid rgb(5,161,245);
-            margin: 10px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+#items, .dropbox {
+    display: inline-block;
+    float: left;
+    /*position: absolute;*/
+    width: 200px;
+    min-height: 260px;
+    border: 2px solid black;
+}
+.inlinePlease{
+    float: left;
+}
+
+div.item {
+    float: left;
+    min-width: 160px;
+    min-height: 30px;
+    border: 2px solid rgb(5,161,245);
+    margin: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}

@@ -20,21 +20,24 @@
             <div style="border-bottom: 2px solid black">
                 <b>LEGOS</b>
             </div>
+            <!-- <div ng-repeat="item in items">-->
+                <!-- usage of the Draggable directive -->
+                <!-- <div brick="true" class="item" itemid="{{item.id}}" style="background-color: {{item.color}}"></div> -->
+            <!-- </div> -->
             <div ng-repeat="item in items">
                 <!-- usage of the Draggable directive -->
                 <div brick="true" class="item" itemid="{{item.id}}" style="background-color: {{item.color}}"></div>
             </div>
         </div>
         <!-- usage of the DropTarget directive -->
-        <div ng-repeat="(key, item) in dropTarget">
-        	{{key}}
-        	{{$index +1}}
+        <div id="inlinePlease" ng-repeat="(key, item) in dropTarget">
+
 	        <div id="s{{$index + 1}}" class="dropbox" slot="true">
-	            <div style="border-bottom: 2px solid black">
+	            <div itemid="{{item.id}}" style="border-bottom: 2px solid black">
 	                <b>Dropbox</b>
 	            </div>
 	            <div ng-repeat="box in item">
-	                <div class="item" style="background-color:{{box.color}}">{{box.id}}. {{box.name}}</div>
+	                <div class="item" brick="true" style="background-color:{{box.color}}">{{box.id}}. {{box.name}}</div>
 	            </div>
 	        </div>
 	    </div>
