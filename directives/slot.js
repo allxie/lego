@@ -14,8 +14,12 @@ var Slot = function () {
 
       element.bind("drop", function(eventObject) {
         // invoke controller/scope move method
+
+        //Figures out which slot we're dropping it to
         target = angular.element(element).attr("id");
-        scope.moveToBox(parseInt(eventObject.dataTransfer.getData("text")), eventObject.dataTransfer.getData("from"),target);
+        //calls the function moveToBox (which lives in app.js)
+        //passes through the blockId and the id of the slot where we picked up the block
+        scope.moveToBox(parseInt(eventObject.dataTransfer.getData("blockId")), eventObject.dataTransfer.getData("from"),target);
         // cancel actual UI element from dropping, since the angular will recreate a the UI element
         eventObject.preventDefault();
         scope.$apply();

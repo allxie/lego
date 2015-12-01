@@ -14,7 +14,6 @@
 </head>
 <body ng-app="leGo">
 	<div ng-controller="MainCtrl">
-		{{award}}
 
 		<div id="items">
             <div style="border-bottom: 2px solid black">
@@ -25,6 +24,7 @@
                 <div brick="true" class="item" itemid="{{item.id}}" style="background-color: {{item.color}}"></div>
             </div>
         </div>
+
         <!-- usage of the DropTarget directive -->
         <div id="inlinePlease" ng-repeat="(key, item) in dropTarget">
 
@@ -33,7 +33,7 @@
 	                <b>Dropbox</b>
 	            </div>
 	            <div ng-repeat="box in item">
-	                <div class="item" brick="true" style="background-color:{{box.color}}">{{box.id}}. {{box.name}}</div>
+	                <div class="item" itemid="{{box.id}}" brick="true" style="background-color:{{box.color}}">{{box.id}}. {{box.name}}</div>
 	            </div>
 	        </div>
 	    </div>
