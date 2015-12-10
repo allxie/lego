@@ -15,15 +15,13 @@
 <body ng-app="leGo">
 	<div ng-controller="MainCtrl">
 
-		<div id="items">
-            <div style="border-bottom: 2px solid black">
-                <b>LEGOS</b>
-            </div>
-            <div ng-repeat="item in items">
-                <!-- usage of the Draggable directive -->
-                <div brick="true" class="item" itemid="{{item.id}}" style="background-color: {{item.color}}"></div>
-            </div>
-        </div>
+		<form>
+			Select a brick size:
+			<input ng-model="brickWidth" placeholder="width" type="number">
+			<input ng-model="brickHeight" placeholder="height" type="number">
+			Select a color: <input ng-model="color">
+			<button ng-click="makeBrick()">Create Lego! </button>
+		</form>
 
         <!-- usage of the DropTarget directive -->
         <div id="inlinePlease" ng-repeat="(key, item) in dropTarget">
