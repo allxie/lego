@@ -1,10 +1,11 @@
 angular.module('leGo', [])
 	.controller('MainCtrl', ['$scope', function($scope, $index){
-		$scope.foobar = 2;
+		$scope.brickCount = 4;
 		$scope.dropTarget = {'items': [{id: 1, color: "blue", width: 2},
         {id: 2, color: "green", width: 2},
         {id: 3, color: "orange", width: 2},
         {id: 4, color: "red", width: 2}], 's1': [], 's2': [], 's3': [], 's4': [], 's5': [], 's6': []};
+
 
 // {id: 1, color: "blue", width: 2},
 	    // {id: 2, color: "green", width: 2},
@@ -13,7 +14,13 @@ angular.module('leGo', [])
 
     //user makes a custom brick
     $scope.makeBrick = function(){
+        //Increments brick count to create a new id.
+        $scope.brickCount ++;
         console.log($scope.brickWidth, $scope.brickHeight, $scope.color);
+        $scope.dropTarget.items.push({id: $scope.brickCount, color: $scope.color, width: $scope.width, height: $scope.height});
+
+        console.log($scope.dropTarget);
+
         //empty the fields
     }
 
