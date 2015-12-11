@@ -1,10 +1,30 @@
 angular.module('leGo', [])
-	.controller('MainCtrl', ['$scope', function($scope, $index){
+	.controller('MainCtrl', ['$scope', '$window', function($scope, $window, $index){
 		$scope.brickCount = 4;
-		$scope.dropTarget = {'items': [{id: 1, color: "blue", width: 2},
-        {id: 2, color: "green", width: 2},
-        {id: 3, color: "orange", width: 2},
-        {id: 4, color: "red", width: 2}], 's1': [], 's2': [], 's3': [], 's4': [], 's5': [], 's6': []};
+		$scope.dropTarget = {'items': [{id: 1, color: "blue", width: 2}]};
+
+
+    $scope.$watch(function(){
+        var height = $window.innerHeight - 10;
+        var width = $window.innerWidth; - 20
+        console.log("width, ", width);
+        console.log("height" , height);
+        var blockCount = (Math.floor(width/102)) * (Math.floor(height/52));
+        //tells us the number of blocks for that size screen
+       return blockCount;
+    }, function(value) {
+        console.log("vaalue", value);
+       $scope.initTable(value);
+    });
+
+    $scope.initTable = function(blockCount){
+        for(i = 2; i <= blockCount; i++){
+            var idTitle = "s" + i;
+            $scope.dropTarget[idTitle] = [];
+        }
+        console.log($scope.dropTarget);
+
+    }
 
 
 // {id: 1, color: "blue", width: 2},
