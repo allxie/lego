@@ -32,3 +32,7 @@ div.item {
     cursor: pointer;
     font-weight: bold;
 }
+#flex-container{
+    display: flex;
+    flex-wrap: wrap;
+}

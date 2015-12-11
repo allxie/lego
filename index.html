@@ -19,22 +19,34 @@
 			Select a brick size:
 			<input ng-model="brickWidth" placeholder="width" type="number">
 			<input ng-model="brickHeight" placeholder="height" type="number">
-			Select a color: <input ng-model="color">
+			Select a color:
+			<select name="colorSelect" ng-model="color">
+				<option value="red">Red</option>
+      			<option value="orange">Orange</option>
+      			<option value="yellow">Yellow</option>
+      			<option value="green">Green</option>
+      			<option value="blue">Blue</option>
+      			<option value="purple">Purple</option>
+      			<option value="white">White</option>
+      			<option value="black">Black</option>
+			</select>
 			<button ng-click="makeBrick()">Create Lego! </button>
 		</form>
 
         <!-- usage of the DropTarget directive -->
-        <div id="inlinePlease" ng-repeat="(key, item) in dropTarget">
+        <div id="flex-container">
+	        <div id="inlinePlease" ng-repeat="(key, item) in dropTarget">
 
-	        <div id="{{key}}" class="dropbox" slot="true">
-	            <div itemid="{{item.id}}" style="border-bottom: 2px solid black">
-	                <b>Dropbox</b>
-	            </div>
-	            <div ng-repeat="box in item">
-	                <div class="item" itemid="{{box.id}}" brick="true" style="background-color:{{box.color}}">{{box.id}}. {{box.name}}</div>
-	            </div>
-	        </div>
-	    </div>
+		        <div id="{{key}}" class="dropbox" slot="true">
+		            <div itemid="{{item.id}}" style="border-bottom: 2px solid black">
+		                <b>Dropbox</b>
+		            </div>
+		            <div ng-repeat="box in item">
+		                <div class="item" itemid="{{box.id}}" brick="true" style="background-color:{{box.color}}">{{box.id}}. {{box.name}}</div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
 	</div>
 </body>
 </html>

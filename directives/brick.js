@@ -12,7 +12,7 @@ var Brick = function() {
         //2.) The id of the slot we're dragging it from
         eventObject.dataTransfer.setData("from", eventObject.path[2].id);
 
-      	console.log("dragstart event object", eventObject);
+      	// console.log("dragstart event object", eventObject);
 
       });
     }

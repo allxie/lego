@@ -5,8 +5,8 @@ var Slot = function () {
     link: function (scope, element, attributes, ctlr) {
 
       var target = angular.element(element).attr("id");
-      console.log("ID", target);
-      console.log("elementary, dear watson", element);
+      // console.log("ID", target);
+      // console.log("elementary, dear watson", element);
 
       element.bind("dragover", function(eventObject){
         eventObject.preventDefault();

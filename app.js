@@ -25,21 +25,21 @@ angular.module('leGo', [])
     }
 
     $scope.moveToBox = function(blockId, from, targetId) {
-    	console.log("block id: " , blockId, " targetID: ", targetId);
-    	console.log("FROM RUSSIA WITH LOVE : ", from);
+    	// console.log("block id: " , blockId, " targetID: ", targetId);
+    	// console.log("FROM RUSSIA WITH LOVE : ", from);
         for(var i = 0; i < $scope.dropTarget[from].length; i++){
 
             var item = $scope.dropTarget[from][i];
             if (item.id == blockId) {
                 // add to dropped array
                 $scope.dropTarget[targetId].push(item);
-                console.log("Drop target", $scope.dropTarget);
+                // console.log("Drop target", $scope.dropTarget);
                 // remove from items array
                 $scope.dropTarget[from].splice(i, 1);
             }
         }
         $scope.$apply(); //maybe learn to use this?
-        console.log("end drop target", $scope.dropTarget);
+        // console.log("end drop target", $scope.dropTarget);
     };
 
 	}]) // end MainCtrl
