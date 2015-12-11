@@ -1,29 +1,26 @@
 angular.module('leGo', [])
 	.controller('MainCtrl', ['$scope', '$window', function($scope, $window, $index){
-		$scope.brickCount = 4;
+		$scope.brickCount = 1;
 		$scope.dropTarget = {'items': [{id: 1, color: "blue", width: 2}]};
 
 
+    //Figures out the width of the screen
+    //in order to fill it with the right number of slots
     $scope.$watch(function(){
-        var height = $window.innerHeight - 10;
-        var width = $window.innerWidth; - 20
-        console.log("width, ", width);
-        console.log("height" , height);
-        var blockCount = (Math.floor(width/102)) * (Math.floor(height/52));
-        //tells us the number of blocks for that size screen
+      var height = $window.innerHeight - 10;
+      var width = $window.innerWidth; - 20
+      var blockCount = (Math.floor(width/102)) * (Math.floor(height/52));
+      //tells us the number of blocks for that size screen
        return blockCount;
     }, function(value) {
-        console.log("vaalue", value);
-       $scope.initTable(value);
+        $scope.initTable(value);
     });
-
+    // Fills the screen with the right number of slots
     $scope.initTable = function(blockCount){
-        for(i = 2; i <= blockCount; i++){
-            var idTitle = "s" + i;
-            $scope.dropTarget[idTitle] = [];
-        }
-        console.log($scope.dropTarget);
-
+      for(i = 2; i <= blockCount; i++){
+        var idTitle = "s" + i;
+        $scope.dropTarget[idTitle] = [];
+      }
     }
 
 
@@ -50,7 +47,7 @@ angular.module('leGo', [])
         for(var i = 0; i < $scope.dropTarget[from].length; i++){
 
             var item = $scope.dropTarget[from][i];
-            if (item.id == blockId) {
+            if (item.id == blockId && $scope.dropTarget[targetId].length == 0) {
                 // add to dropped array
                 $scope.dropTarget[targetId].push(item);
                 // console.log("Drop target", $scope.dropTarget);
