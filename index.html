@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script src="angular.js"></script>
 	<script src="directives/brick.js"></script>
 	<script src="directives/slot.js"></script>
 	<script src="app.js"></script>
@@ -36,19 +36,29 @@
         <!-- usage of the DropTarget directive -->
         <div id="flex_container">
 	        <div id="inlinePlease" ng-repeat="(key, item) in dropTarget">
-
 		        <div id="{{key}}" class="dropbox" slot="true">
 		            <div ng-repeat="box in item">
 		            	<div class="item" itemid="{{box.id}}" brick="true">
 		            		<div class="left-peg" style="background-color:{{box.color}}"></div>
 		            		<div class="right-peg" style="background-color:{{box.color}}"></div>
 		            		<div class="block" style="background-color:{{box.color}}">
+		            			{{box.label}}
 		            		</div>
 		            	</div>
-		                <!-- <div class="item" itemid="{{box.id}}" brick="true" style="background-color:{{box.color}}"></div> -->
 		            </div>
 		        </div>
 		    </div>
+		    <!-- <div id="trash" class="dropbox" slot="true"> -->
+		        	<!-- Trash -->
+		            <!-- <div ng-repeat="box in item">
+		            	<div class="item" itemid="{{box.id}}" brick="true">
+		            		<div class="left-peg" style="background-color:{{box.color}}"></div>
+		            		<div class="right-peg" style="background-color:{{box.color}}"></div>
+		            		<div class="block" style="background-color:{{box.color}}">
+		            		</div>
+		            	</div>
+		            </div> -->
+		    <!-- </div> -->
 		</div>
 	</div>
 </body>
