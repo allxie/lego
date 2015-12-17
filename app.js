@@ -46,7 +46,6 @@ angular.module('leGo', [])
       //Increments brick count to create a new id.
       $scope.brickCount ++;
       // console.log($scope.brickWidth, $scope.brickHeight, $scope.color);
-      // $scope.dropTarget.items = {id: $scope.brickCount, color: $scope.color, width: $scope.width, height: $scope.height};
       $scope.origin = {id: $scope.brickCount, color: $scope.color, width: $scope.width, height: $scope.height};
 
 
@@ -57,12 +56,18 @@ angular.module('leGo', [])
     }
 
     $scope.moveToBox = function(blockId, from, targetId) {
+      console.log($scope.dropTarget[targetId]);
+      // Checks to see if that space is already filled. If so, don't move brick.
+      if($scope.dropTarget[targetId].color && targetId != "trash") {
+        return false;
+      }
       var item;
     	console.log("block id: " , blockId, " targetID: ", targetId);
     	console.log("FROM RUSSIA WITH LOVE : ", from);
 
       from === "origin" ? item = $scope.origin : item = $scope.dropTarget[from];
       // Put item in new slot
+
       $scope.dropTarget[targetId] = item;
       // Clear old slot
       $scope.dropTarget[from] = {};
