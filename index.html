@@ -42,7 +42,7 @@
         <!-- usage of the DropTarget directive -->
         <div id="flex_container">
 	        <div ng-repeat="(key, item) in dropTarget">
-		        <div id="{{key}}" class="dropbox" slot="true">
+		        <div id="{{key}}" style="width: {{singleWidth}}px" class="dropbox" slot="true">
 		            	<div class="item" itemid="{{item.id}}" brick="true">
 		      				<span ng-show="item.id">
 			            		<!-- <div ng-repeat="t in getPegs(item.pegs) track by $index" class="left-peg" style="background-color:{{item.color}}"></div> -->

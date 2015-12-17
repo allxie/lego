@@ -18,7 +18,7 @@
     float: left;
     /*position: absolute;*/
     width: 96px;
-    min-height: 46px;
+    height: 46px;
 }
 .right-peg, .left-peg{
     z-index: -1; /*Makes pegs go behind bricks above*/
@@ -44,7 +44,7 @@
 
 div.item {
     float: left;
-    width: 94px;
+    /*width: 94px;*/
     min-height: 44px;
     /*border: 2px solid rgb(5,161,245);*/
     /*margin: 10px;*/
@@ -53,7 +53,7 @@ div.item {
     font-weight: bold;
 }
 .block{
-    width: 96px;
+    /*width: 96px;*/
     min-height: 44px;
     text-align: center;
     border: 1px solid black;

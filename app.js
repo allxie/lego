@@ -1,5 +1,6 @@
 // TASKS
 //  * Style block creation unit
+//  * Speed up pegs issue. Delete that function.
 //  * Change color dropdowns to colored select tiles
 //  * Change brick origin on change instead of onsubmit
 //  * Make it so that if you drop a brick on a taken slot and there's a not-taken one
@@ -15,6 +16,7 @@
 angular.module('leGo', [])
 	.controller('MainCtrl', ['$scope', '$window', function($scope, $window, $index){
     $scope.singleWidth = 46;
+    $scope.pixleWidth = $scope.singleWidth + "px";
 		$scope.brickCount = 1; // Increments later to make unique lego ID
     // Options for color dropdown
     $scope.colorOptions = [{
@@ -44,8 +46,8 @@ angular.module('leGo', [])
     //in order to fill it with the right number of slots
     $scope.$watch(function(){
       var height = $window.innerHeight - 10;
-      var width = $window.innerWidth; - 20
-      var blockCount = (Math.floor(width/102)) * (Math.floor(height/52));
+      var width = $window.innerWidth - 10;
+      var blockCount = (Math.floor(width / ($scope.singleWidth))) * (Math.floor(height/46));
       //tells us the number of blocks for that size screen
        return blockCount;
     }, function(value) {
@@ -59,7 +61,7 @@ angular.module('leGo', [])
         $scope.dropTarget[idTitle] = {};
 
       }
-      $scope.dropTarget["trash"] = {"id": "trash", "label": "Delete"};
+      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete", "pegs" : 2, "width": ($scope.singleWidth * 2) + "px"};
 
     }
 
@@ -93,7 +95,7 @@ angular.module('leGo', [])
       $scope.dropTarget[targetId] = item;
 
       // Empties the trash.
-      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete", "pegs" : 2};
+      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete", "pegs" : 2, "width": ($scope.singleWidth * 2) + "px"};
 
       $scope.$apply(); //maybe learn to use this?
     };
