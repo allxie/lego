@@ -10,7 +10,7 @@
 
 .dropbox {
     z-index: -1;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 #items, .dropbox {
@@ -72,7 +72,7 @@ div.item {
     background-color: black;
     color: white;
     display: inline-block;
-    /*position: absolute;*/
+    position: absolute;
     padding: 20px;
     /*z-index: -1;*/
 }

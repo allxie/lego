@@ -1,7 +1,11 @@
 // TASKS
 //  * Style block creation unit
+//  * Change brick origin on change instead of onsubmit
+//  * Make it so that if you drop a brick on a taken slot and there's a not-taken one
+// nearby, it will snap to that one.
 //  * Make multi-sized blocks
 //  * Address window resizing
+//  * Restrict grabbing if a brick is surrounded.
 //  * Size grid with a dial
 //  * Be able to hilight and drag structures of blocks
 
