@@ -46,7 +46,9 @@ angular.module('leGo', [])
       //Increments brick count to create a new id.
       $scope.brickCount ++;
       // console.log($scope.brickWidth, $scope.brickHeight, $scope.color);
-      $scope.dropTarget.items = {id: $scope.brickCount, color: $scope.color, width: $scope.width, height: $scope.height};
+      // $scope.dropTarget.items = {id: $scope.brickCount, color: $scope.color, width: $scope.width, height: $scope.height};
+      $scope.origin = {id: $scope.brickCount, color: $scope.color, width: $scope.width, height: $scope.height};
+
 
       console.log($scope.dropTarget);
 
@@ -55,12 +57,11 @@ angular.module('leGo', [])
     }
 
     $scope.moveToBox = function(blockId, from, targetId) {
+      var item;
     	console.log("block id: " , blockId, " targetID: ", targetId);
     	console.log("FROM RUSSIA WITH LOVE : ", from);
-      if(from === "origin"){
-        //
-      }
-      var item = $scope.dropTarget[from];
+
+      from === "origin" ? item = $scope.origin : item = $scope.dropTarget[from];
       // Put item in new slot
       $scope.dropTarget[targetId] = item;
       // Clear old slot
