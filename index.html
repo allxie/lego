@@ -17,63 +17,44 @@
 <body ng-app="leGo">
 	<div ng-controller="MainCtrl">
 
-		<form id="new-brick-form">
-			<h2 id="new-lego"> Make A New Lego! </h2>
-			<input ng-model="brickWidth" placeholder="width" type="number">
-			<input ng-model="brickHeight" placeholder="height" type="number">
-			Select a color:
-			<select class="ui dropdown" name="colorSelect" ng-model="color">
+		<!-- <form id="new-brick-form"> -->
+		<div id="new-brick-form">
 
-				<option value="red">Red</option>
-      			<option value="orange">Orange</option>
-      			<option value="yellow">Yellow</option>
-      			<option value="green">Green</option>
-      			<option value="blue">Blue</option>
-      			<option value="purple">Purple</option>
-      			<option value="white">White</option>
-      			<option value="black">Black</option>
+			<h2 id="new-lego"> Make A New Lego! </h2>
+			<input ng-model="width" placeholder="width" type="number">
+			<input ng-model="brickHeight" placeholder="height" type="number">
+
+			<select name="colorSelect" ng-init="color = colorOptions[1]" ng-model="color" ng-options="option.name for option in colorOptions">
 			</select>
-			<button id="create" ng-click="makeBrick()">Create Lego! </button>
+
 
 			<!-- Brick Origin -->
 			<div id="origin" class="dropbox" slot="true">
 	            <div class="item" itemid="{{origin.id}}" brick="true">
-	            	<div class="left-peg peg" style="background-color:{{origin.color}}"></div>
-	            	<div class="right-peg peg" style="background-color:{{origin.color}}"></div>
-	            	<div class="block" style="background-color:{{origin.color}}"></div>
+	            	<div class="left-peg peg" style="background-color:{{color.value}}"></div>
+	            	<div class="right-peg peg" style="background-color:{{color.value}}"></div>
+	            	<div class="block" style="background-color:{{color.value}}"></div>
 	            </div>
 	        </div>
-
-		</form>
+<!-- </form> -->
+		</div>
 
         <!-- usage of the DropTarget directive -->
         <div id="flex_container">
 	        <div ng-repeat="(key, item) in dropTarget">
 		        <div id="{{key}}" class="dropbox" slot="true">
-		            <!-- <div ng-repeat="box in item"> -->
 		            	<div class="item" itemid="{{item.id}}" brick="true">
 		      				<span ng-show="item.id">
-			            		<div class="left-peg" style="background-color:{{item.color}}"></div>
-			            		<div class="right-peg" style="background-color:{{item.color}}"></div>
-			            		<div class="block" style="background-color:{{item.color}}">
+			            		<!-- <div ng-repeat="t in getPegs(item.pegs) track by $index" class="left-peg" style="background-color:{{item.color}}"></div> -->
+			            		<!-- <div class="right-peg" style="background-color:{{item.color}}"></div> -->
+			            		<div class="block" style="background-color:{{item.color}}; width:{{item.width}}">
+			            			<div ng-repeat="t in getPegs(item.pegs) track by $index" class="left-peg" style="background-color:{{item.color}}"></div>
 			            			{{item.label}}
 			            		</div>
 			            	</span>
 		            	</div>
-		            <!-- </div> -->
 		        </div>
 		    </div>
-		    <!-- <div id="trash" class="dropbox" slot="true"> -->
-		        	<!-- Trash -->
-		            <!-- <div ng-repeat="box in item">
-		            	<div class="item" itemid="{{box.id}}" brick="true">
-		            		<div class="left-peg" style="background-color:{{box.color}}"></div>
-		            		<div class="right-peg" style="background-color:{{box.color}}"></div>
-		            		<div class="block" style="background-color:{{box.color}}">
-		            		</div>
-		            	</div>
-		            </div> -->
-		    <!-- </div> -->
 		</div>
 	</div>
 </body>

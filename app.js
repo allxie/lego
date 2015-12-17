@@ -1,5 +1,6 @@
 // TASKS
 //  * Style block creation unit
+//  * Change color dropdowns to colored select tiles
 //  * Change brick origin on change instead of onsubmit
 //  * Make it so that if you drop a brick on a taken slot and there's a not-taken one
 // nearby, it will snap to that one.
@@ -13,11 +14,31 @@
 
 angular.module('leGo', [])
 	.controller('MainCtrl', ['$scope', '$window', function($scope, $window, $index){
-		$scope.brickCount = 1;
-    $scope.origin = {id: 1, color: "blue", width: 2};
-		window.dropTarget = $scope.dropTarget = {};
-    // {'items': [{id: 1, color: "blue", width: 2}]};
+    $scope.singleWidth = 46;
+		$scope.brickCount = 1; // Increments later to make unique lego ID
+    // Options for color dropdown
+    $scope.colorOptions = [{
+       name: 'Red',
+       value: 'red'
+    }, {
+       name: 'Orange',
+       value: 'orange'
+    },{
+       name: 'Yellow',
+       value: 'yellow'
+    }, {
+       name: 'Green',
+       value: 'green'
+    },{
+       name: 'Blue',
+       value: 'blue'
+    }, {
+       name: 'Purple',
+       value: 'purple'
+    }];
 
+    // Object holds each square and keeps track of where each brick is
+		window.dropTarget = $scope.dropTarget = {};
 
     //Figures out the width of the screen
     //in order to fill it with the right number of slots
@@ -35,29 +56,18 @@ angular.module('leGo', [])
     $scope.initTable = function(blockCount){
       for(i = 2; i <= blockCount - 1; i++){
         var idTitle = "s" + i;
-        // $scope.dropTarget[idTitle] = [];
         $scope.dropTarget[idTitle] = {};
 
       }
-      // $scope.dropTarget["trash"] = [{"label": "Delete"}];
       $scope.dropTarget["trash"] = {"id": "trash", "label": "Delete"};
 
-      console.log("Innitting board ", $scope.dropTarget);
     }
 
-    //user makes a custom brick
-    $scope.makeBrick = function(){
-      //Increments brick count to create a new id.
-      $scope.brickCount ++;
-      // console.log($scope.brickWidth, $scope.brickHeight, $scope.color);
-      $scope.origin = {id: $scope.brickCount, color: $scope.color, width: $scope.width, height: $scope.height};
+    $scope.getPegs = function(n){
+      console.log("pegs", n);
+     return new Array(n);
+    };
 
-
-      console.log($scope.dropTarget);
-
-      //empty the fields
-
-    }
 
     $scope.moveToBox = function(blockId, from, targetId) {
       // Checks to see if that space is already filled. If so, don't move brick.
@@ -70,15 +80,20 @@ angular.module('leGo', [])
         var item = $scope.dropTarget[from];
         // Clears the last square
         $scope.dropTarget[from] = {};
-      } else {
-        // Sets item to move
-        var item = $scope.origin;
+      } else { // NEW BRICK!
+        // We're making a new brick!
+        // Sets item as the presets in the form
+        var blockWidth = ($scope.width * $scope.singleWidth) + "px";
+        console.log(blockWidth);
+        var item = {id: $scope.brickCount, color: $scope.color.value, width: blockWidth, pegs: $scope.width, height: $scope.height};
+
+        $scope.brickCount ++;
       }
       // Moves item
       $scope.dropTarget[targetId] = item;
 
       // Empties the trash.
-      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete"};
+      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete", "pegs" : 2};
 
       $scope.$apply(); //maybe learn to use this?
     };
