@@ -1,5 +1,6 @@
 // TASKS
 //  * Style block creation unit
+//  * Change color dropdowns to colored select tiles
 //  * Change brick origin on change instead of onsubmit
 //  * Make it so that if you drop a brick on a taken slot and there's a not-taken one
 // nearby, it will snap to that one.
@@ -54,18 +55,15 @@ angular.module('leGo', [])
     $scope.initTable = function(blockCount){
       for(i = 2; i <= blockCount - 1; i++){
         var idTitle = "s" + i;
-        // $scope.dropTarget[idTitle] = [];
         $scope.dropTarget[idTitle] = {};
 
       }
       $scope.dropTarget["trash"] = {"id": "trash", "label": "Delete"};
 
-      console.log("Innitting board ", $scope.dropTarget);
     }
 
 
     $scope.moveToBox = function(blockId, from, targetId) {
-      console.log("SCOPE DOT COLOR", $scope.color);
       // Checks to see if that space is already filled. If so, don't move brick.
       if($scope.dropTarget[targetId].color && targetId != "trash") {
         return false;
