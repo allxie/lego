@@ -14,6 +14,7 @@
 
 angular.module('leGo', [])
 	.controller('MainCtrl', ['$scope', '$window', function($scope, $window, $index){
+    $scope.singleWidth = 46;
 		$scope.brickCount = 1; // Increments later to make unique lego ID
     // Options for color dropdown
     $scope.colorOptions = [{
@@ -62,6 +63,11 @@ angular.module('leGo', [])
 
     }
 
+    $scope.getPegs = function(n){
+      console.log("pegs", n);
+     return new Array(n);
+    };
+
 
     $scope.moveToBox = function(blockId, from, targetId) {
       // Checks to see if that space is already filled. If so, don't move brick.
@@ -77,7 +83,9 @@ angular.module('leGo', [])
       } else { // NEW BRICK!
         // We're making a new brick!
         // Sets item as the presets in the form
-        var item = {id: $scope.brickCount, color: $scope.color.value, width: $scope.width, height: $scope.height};
+        var blockWidth = ($scope.width * $scope.singleWidth) + "px";
+        console.log(blockWidth);
+        var item = {id: $scope.brickCount, color: $scope.color.value, width: blockWidth, pegs: $scope.width, height: $scope.height};
 
         $scope.brickCount ++;
       }
@@ -85,7 +93,7 @@ angular.module('leGo', [])
       $scope.dropTarget[targetId] = item;
 
       // Empties the trash.
-      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete"};
+      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete", "pegs" : 2};
 
       $scope.$apply(); //maybe learn to use this?
     };

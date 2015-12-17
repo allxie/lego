@@ -21,7 +21,7 @@
 		<div id="new-brick-form">
 
 			<h2 id="new-lego"> Make A New Lego! </h2>
-			<input ng-model="brickWidth" placeholder="width" type="number">
+			<input ng-model="width" placeholder="width" type="number">
 			<input ng-model="brickHeight" placeholder="height" type="number">
 
 			<select name="colorSelect" ng-init="color = colorOptions[1]" ng-model="color" ng-options="option.name for option in colorOptions">
@@ -43,30 +43,18 @@
         <div id="flex_container">
 	        <div ng-repeat="(key, item) in dropTarget">
 		        <div id="{{key}}" class="dropbox" slot="true">
-		            <!-- <div ng-repeat="box in item"> -->
 		            	<div class="item" itemid="{{item.id}}" brick="true">
 		      				<span ng-show="item.id">
-			            		<div class="left-peg" style="background-color:{{item.color}}"></div>
-			            		<div class="right-peg" style="background-color:{{item.color}}"></div>
-			            		<div class="block" style="background-color:{{item.color}}">
+			            		<!-- <div ng-repeat="t in getPegs(item.pegs) track by $index" class="left-peg" style="background-color:{{item.color}}"></div> -->
+			            		<!-- <div class="right-peg" style="background-color:{{item.color}}"></div> -->
+			            		<div class="block" style="background-color:{{item.color}}; width:{{item.width}}">
+			            			<div ng-repeat="t in getPegs(item.pegs) track by $index" class="left-peg" style="background-color:{{item.color}}"></div>
 			            			{{item.label}}
 			            		</div>
 			            	</span>
 		            	</div>
-		            <!-- </div> -->
 		        </div>
 		    </div>
-		    <!-- <div id="trash" class="dropbox" slot="true"> -->
-		        	<!-- Trash -->
-		            <!-- <div ng-repeat="box in item">
-		            	<div class="item" itemid="{{box.id}}" brick="true">
-		            		<div class="left-peg" style="background-color:{{box.color}}"></div>
-		            		<div class="right-peg" style="background-color:{{box.color}}"></div>
-		            		<div class="block" style="background-color:{{box.color}}">
-		            		</div>
-		            	</div>
-		            </div> -->
-		    <!-- </div> -->
 		</div>
 	</div>
 </body>

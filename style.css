@@ -44,7 +44,7 @@
 
 div.item {
     float: left;
-    min-width: 94px;
+    width: 94px;
     min-height: 44px;
     /*border: 2px solid rgb(5,161,245);*/
     /*margin: 10px;*/
@@ -53,7 +53,7 @@ div.item {
     font-weight: bold;
 }
 .block{
-    min-width: 96px;
+    width: 96px;
     min-height: 44px;
     text-align: center;
     border: 1px solid black;
