@@ -1,5 +1,6 @@
 // TASKS
 //  * Style block creation unit
+//  * Fix extra square bug
 //  * Make multi-sized blocks
 //  * Address window resizing
 //  * Size grid with a dial
