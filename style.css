@@ -86,3 +86,10 @@ div.item {
     background-color: orange;
     z-index: 100;
 }
+#origin{
+    z-index: 1000;
+    margin-top: 20px;
+}
+#origin .peg{
+    z-index: 1000;
+}

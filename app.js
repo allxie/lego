@@ -1,6 +1,5 @@
 // TASKS
 //  * Style block creation unit
-//  * Fix extra square bug
 //  * Make multi-sized blocks
 //  * Address window resizing
 //  * Size grid with a dial
@@ -57,27 +56,27 @@ angular.module('leGo', [])
     }
 
     $scope.moveToBox = function(blockId, from, targetId) {
-      console.log($scope.dropTarget[targetId]);
       // Checks to see if that space is already filled. If so, don't move brick.
       if($scope.dropTarget[targetId].color && targetId != "trash") {
         return false;
       }
-      var item;
-    	console.log("block id: " , blockId, " targetID: ", targetId);
-    	console.log("FROM RUSSIA WITH LOVE : ", from);
-
-      from === "origin" ? item = $scope.origin : item = $scope.dropTarget[from];
-      // Put item in new slot
-
+      // Checks to see if we're pulling from the board or origin
+      if( from != "origin" ){
+        // Sets item to move
+        var item = $scope.dropTarget[from];
+        // Clears the last square
+        $scope.dropTarget[from] = {};
+      } else {
+        // Sets item to move
+        var item = $scope.origin;
+      }
+      // Moves item
       $scope.dropTarget[targetId] = item;
-      // Clear old slot
-      $scope.dropTarget[from] = {};
-      console.log("Moved, " , $scope.dropTarget);
+
+      // Empties the trash.
       $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete"};
-      console.log("Deleted?, " , $scope.dropTarget);
 
       $scope.$apply(); //maybe learn to use this?
-      // console.log("end drop target", $scope.dropTarget);
     };
 
 	}]) // end MainCtrl
