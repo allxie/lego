@@ -17,34 +17,27 @@
 <body ng-app="leGo">
 	<div ng-controller="MainCtrl">
 
-		<form id="new-brick-form">
+		<!-- <form id="new-brick-form"> -->
+		<div id="new-brick-form">
+
 			<h2 id="new-lego"> Make A New Lego! </h2>
 			<input ng-model="brickWidth" placeholder="width" type="number">
 			<input ng-model="brickHeight" placeholder="height" type="number">
-			Select a color:
-			<select class="ui dropdown" name="colorSelect" ng-model="color">
 
-				<option value="red">Red</option>
-      			<option value="orange">Orange</option>
-      			<option value="yellow">Yellow</option>
-      			<option value="green">Green</option>
-      			<option value="blue">Blue</option>
-      			<option value="purple">Purple</option>
-      			<option value="white">White</option>
-      			<option value="black">Black</option>
+			<select name="colorSelect" ng-init="color = colorOptions[1]" ng-model="color" ng-options="option.name for option in colorOptions">
 			</select>
-			<button id="create" ng-click="makeBrick()">Create Lego! </button>
+
 
 			<!-- Brick Origin -->
 			<div id="origin" class="dropbox" slot="true">
 	            <div class="item" itemid="{{origin.id}}" brick="true">
-	            	<div class="left-peg peg" style="background-color:{{origin.color}}"></div>
-	            	<div class="right-peg peg" style="background-color:{{origin.color}}"></div>
-	            	<div class="block" style="background-color:{{origin.color}}"></div>
+	            	<div class="left-peg peg" style="background-color:{{color.value}}"></div>
+	            	<div class="right-peg peg" style="background-color:{{color.value}}"></div>
+	            	<div class="block" style="background-color:{{color.value}}"></div>
 	            </div>
 	        </div>
-
-		</form>
+<!-- </form> -->
+		</div>
 
         <!-- usage of the DropTarget directive -->
         <div id="flex_container">
