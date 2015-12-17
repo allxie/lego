@@ -50,15 +50,17 @@
         <div id="flex_container">
 	        <div ng-repeat="(key, item) in dropTarget">
 		        <div id="{{key}}" class="dropbox" slot="true">
-		            <div ng-repeat="box in item">
-		            	<div class="item" itemid="{{box.id}}" brick="true">
-		            		<div class="left-peg" style="background-color:{{box.color}}"></div>
-		            		<div class="right-peg" style="background-color:{{box.color}}"></div>
-		            		<div class="block" style="background-color:{{box.color}}">
-		            			{{box.label}}
-		            		</div>
+		            <!-- <div ng-repeat="box in item"> -->
+		            	<div class="item" itemid="{{item.id}}" brick="true">
+		      				<span ng-show="item.id">
+			            		<div class="left-peg" style="background-color:{{item.color}}"></div>
+			            		<div class="right-peg" style="background-color:{{item.color}}"></div>
+			            		<div class="block" style="background-color:{{item.color}}">
+			            			{{item.label}}
+			            		</div>
+			            	</span>
 		            	</div>
-		            </div>
+		            <!-- </div> -->
 		        </div>
 		    </div>
 		    <!-- <div id="trash" class="dropbox" slot="true"> -->

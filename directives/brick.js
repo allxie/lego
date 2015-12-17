@@ -10,7 +10,7 @@ var Brick = function() {
         //1.) the lego block's ID
         eventObject.dataTransfer.setData("blockId", attributes.itemid);
         //2.) The id of the slot we're dragging it from
-        eventObject.dataTransfer.setData("from", eventObject.path[2].id);
+        eventObject.dataTransfer.setData("from", eventObject.path[1].id);
 
       	// console.log("dragstart event object", eventObject);
 
