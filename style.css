@@ -7,28 +7,89 @@
 #items {
     left: 222px;
 }
- 
+
 .dropbox {
+    z-index: -1;
+    /*border: 1px solid black;*/
 }
 
 #items, .dropbox {
     display: inline-block;
     float: left;
     /*position: absolute;*/
-    width: 200px;
-    min-height: 260px;
-    border: 2px solid black;
+    width: 96px;
+    min-height: 46px;
 }
-.inlinePlease{
+.right-peg, .left-peg{
+    z-index: -1; /*Makes pegs go behind bricks above*/
+    position: relative;
+    top: -13px;
+    display: inline;
+    border-right: 3px solid black;
+    border-left: 5px solid black;
+    border-top: 1px solid black;
+    width: 17px;
+    height: 11px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+.right-peg{
+    float: right;
+}
+.left-peg{
     float: left;
+
 }
 
 div.item {
     float: left;
-    min-width: 160px;
-    min-height: 30px;
-    border: 2px solid rgb(5,161,245);
-    margin: 10px;
+    min-width: 94px;
+    min-height: 44px;
+    /*border: 2px solid rgb(5,161,245);*/
+    /*margin: 10px;*/
+    /*border: 1px solid black;*/
     cursor: pointer;
     font-weight: bold;
+}
+.block{
+    min-width: 96px;
+    min-height: 44px;
+    text-align: center;
+    border: 1px solid black;
+    z-index: 1000;
+}
+#flex_container{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#new-brick-form{
+    width: 150px;
+    height: 250px;
+    background-color: black;
+    color: white;
+    display: inline-block;
+    position: absolute;
+    padding: 20px;
+    /*z-index: -1;*/
+}
+#new-lego{
+    font-size: 20px;
+    margin-top: 0px;
+}
+#create{
+    border: 0px;
+    border-radius: 0px;
+    background-color: orange;
+    z-index: 100;
+}
+#origin{
+    z-index: 1000;
+    margin-top: 20px;
+}
+#origin .peg{
+    z-index: 1000;
 }

@@ -1,32 +1,86 @@
+// TASKS
+//  * Style block creation unit
+//  * Change brick origin on change instead of onsubmit
+//  * Make it so that if you drop a brick on a taken slot and there's a not-taken one
+// nearby, it will snap to that one.
+//  * Make multi-sized blocks
+//  * Address window resizing
+//  * Restrict grabbing if a brick is surrounded.
+//  * Size grid with a dial
+//  * Be able to hilight and drag structures of blocks
+
+
+
 angular.module('leGo', [])
-	.controller('MainCtrl', ['$scope', function($scope, $index){
-		$scope.foobar = 2;
-		$scope.award = "a word";
-		$scope.dropTarget = {'s1': [{id: 1, color: "blue", width: 2},
-	    {id: 2, color: "green", width: 2},
-	    {id: 3, color: "orange", width: 2},
-	    {id: 4, color: "red", width: 2}], 's2': [], 's3': [], 's4': [], 's5': [], 's6': []};
+	.controller('MainCtrl', ['$scope', '$window', function($scope, $window, $index){
+		$scope.brickCount = 1;
+    $scope.origin = {id: 1, color: "blue", width: 2};
+		window.dropTarget = $scope.dropTarget = {};
+    // {'items': [{id: 1, color: "blue", width: 2}]};
 
-		$scope.items = [
-	    {id: 1, color: "blue", width: 2},
-	    {id: 2, color: "green", width: 2},
-	    {id: 3, color: "orange", width: 2},
-	    {id: 4, color: "red", width: 2}
-    					];
 
-    $scope.moveToBox = function(blockId, targetId) {
-        for (var index = 0; index < $scope.items.length; index++) {
-            var item = $scope.items[index];
-            if (item.id == blockId) {
-                // add to dropped array
-                $scope.dropTarget[targetId].push(item);
-                console.log("Drop target", $scope.dropTarget);
-                // remove from items array
-                $scope.items.splice(index, 1);
-            }
-        }
-        $scope.$apply();
-        console.log("end drop target", $scope.dropTarget);
+    //Figures out the width of the screen
+    //in order to fill it with the right number of slots
+    $scope.$watch(function(){
+      var height = $window.innerHeight - 10;
+      var width = $window.innerWidth; - 20
+      var blockCount = (Math.floor(width/102)) * (Math.floor(height/52));
+      //tells us the number of blocks for that size screen
+       return blockCount;
+    }, function(value) {
+        $scope.initTable(value);
+    });
+    // Fills the screen with the right number of slots
+    //maybe fix this. Fix redraw
+    $scope.initTable = function(blockCount){
+      for(i = 2; i <= blockCount - 1; i++){
+        var idTitle = "s" + i;
+        // $scope.dropTarget[idTitle] = [];
+        $scope.dropTarget[idTitle] = {};
+
+      }
+      // $scope.dropTarget["trash"] = [{"label": "Delete"}];
+      $scope.dropTarget["trash"] = {"id": "trash", "label": "Delete"};
+
+      console.log("Innitting board ", $scope.dropTarget);
+    }
+
+    //user makes a custom brick
+    $scope.makeBrick = function(){
+      //Increments brick count to create a new id.
+      $scope.brickCount ++;
+      // console.log($scope.brickWidth, $scope.brickHeight, $scope.color);
+      $scope.origin = {id: $scope.brickCount, color: $scope.color, width: $scope.width, height: $scope.height};
+
+
+      console.log($scope.dropTarget);
+
+      //empty the fields
+
+    }
+
+    $scope.moveToBox = function(blockId, from, targetId) {
+      // Checks to see if that space is already filled. If so, don't move brick.
+      if($scope.dropTarget[targetId].color && targetId != "trash") {
+        return false;
+      }
+      // Checks to see if we're pulling from the board or origin
+      if( from != "origin" ){
+        // Sets item to move
+        var item = $scope.dropTarget[from];
+        // Clears the last square
+        $scope.dropTarget[from] = {};
+      } else {
+        // Sets item to move
+        var item = $scope.origin;
+      }
+      // Moves item
+      $scope.dropTarget[targetId] = item;
+
+      // Empties the trash.
+      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete"};
+
+      $scope.$apply(); //maybe learn to use this?
     };
 
 	}]) // end MainCtrl
