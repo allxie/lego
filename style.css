@@ -9,6 +9,8 @@
 }
 
 .dropbox {
+    z-index: -1;
+    border: 1px solid black;
 }
 
 #items, .dropbox {
@@ -39,9 +41,6 @@
     float: left;
 
 }
-.inlinePlease{
-    float: left;
-}
 
 div.item {
     float: left;
@@ -58,10 +57,32 @@ div.item {
     min-height: 44px;
     text-align: center;
     border: 1px solid black;
+    z-index: 1000;
 }
 #flex_container{
     margin-top: 20px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+}
+
+#new-brick-form{
+    width: 150px;
+    height: 250px;
+    background-color: black;
+    color: white;
+    display: inline-block;
+    position: absolute;
+    padding: 20px;
+    /*z-index: -1;*/
+}
+#new-lego{
+    font-size: 20px;
+    margin-top: 0px;
+}
+#create{
+    border: 0px;
+    border-radius: 0px;
+    background-color: orange;
+    z-index: 100;
 }

@@ -7,6 +7,8 @@
 	<script src="directives/slot.js"></script>
 	<script src="app.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="semantic/src/semantic.less">
+
 
 
 	<title>LeGo!</title>
@@ -15,12 +17,13 @@
 <body ng-app="leGo">
 	<div ng-controller="MainCtrl">
 
-		<form>
-			Select a brick size:
+		<form id="new-brick-form">
+			<h2 id="new-lego"> Make A New Lego! </h2>
 			<input ng-model="brickWidth" placeholder="width" type="number">
 			<input ng-model="brickHeight" placeholder="height" type="number">
 			Select a color:
-			<select name="colorSelect" ng-model="color">
+			<select class="ui dropdown" name="colorSelect" ng-model="color">
+
 				<option value="red">Red</option>
       			<option value="orange">Orange</option>
       			<option value="yellow">Yellow</option>
@@ -30,12 +33,22 @@
       			<option value="white">White</option>
       			<option value="black">Black</option>
 			</select>
-			<button ng-click="makeBrick()">Create Lego! </button>
+			<button id="create" ng-click="makeBrick()">Create Lego! </button>
+
+			<!-- Brick Origin -->
+			<div id="origin" class="dropbox" slot="true">
+	            <div class="item" itemid="{{origin.id}}" brick="true">
+	            	<div class="left-peg" style="background-color:{{origin.color}}"></div>
+	            	<div class="right-peg" style="background-color:{{origin.color}}"></div>
+	            	<div class="block" style="background-color:{{origin.color}}"></div>
+	            </div>
+	        </div>
+
 		</form>
 
         <!-- usage of the DropTarget directive -->
         <div id="flex_container">
-	        <div id="inlinePlease" ng-repeat="(key, item) in dropTarget">
+	        <div ng-repeat="(key, item) in dropTarget">
 		        <div id="{{key}}" class="dropbox" slot="true">
 		            <div ng-repeat="box in item">
 		            	<div class="item" itemid="{{box.id}}" brick="true">
