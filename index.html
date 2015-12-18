@@ -44,7 +44,7 @@
 	        <div ng-repeat="(key, item) in dropTarget">
 		        <div id="{{key}}" style="width: {{singleWidth}}px" class="dropbox" slot="true">
 		            	<div class="item" itemid="{{item.id}}" brick="true">
-		      				<span ng-show="item.id">
+		      				<span ng-show="item.color">
 			            		<!-- <div ng-repeat="t in getPegs(item.pegs) track by $index" class="left-peg" style="background-color:{{item.color}}"></div> -->
 			            		<!-- <div class="right-peg" style="background-color:{{item.color}}"></div> -->
 			            		<div class="block" style="background-color:{{item.color}}; width:{{item.width}}">

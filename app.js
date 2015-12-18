@@ -1,11 +1,9 @@
 // TASKS
 //  * Style block creation unit
+//  * Fix board layout init numbers
 //  * Speed up pegs issue. Delete that function.
 //  * Change color dropdowns to colored select tiles
-//  * Change brick origin on change instead of onsubmit
-//  * Make it so that if you drop a brick on a taken slot and there's a not-taken one
-// nearby, it will snap to that one.
-//  * Make multi-sized blocks
+//  * Make it so that if you drop a brick on a taken slot and there's a not-taken one nearby, it will snap to that one.
 //  * Address window resizing
 //  * Restrict grabbing if a brick is surrounded.
 //  * Size grid with a dial
@@ -80,14 +78,14 @@ angular.module('leGo', [])
     }
 
     // Checks to see if the squares the new box will take up are occupied
-    $scope.isOccupied = function(from, target){
+    $scope.isOccupied = function(blockId, from, target){
       var fillspace;
       $scope.dropTarget[from] == undefined ? fillspace = $scope.width : fillspace = $scope.dropTarget[from].pegs;
       console.log("fillspace", fillspace);
       var checkSquare = target;
       for(var i = 0; i < fillspace; i++){
         console.log("checking ", checkSquare);
-        if($scope.dropTarget[checkSquare].occupied) {
+        if($scope.dropTarget[checkSquare].occupied && ($scope.dropTarget[checkSquare].id != blockId)) {
           console.log("occupado");
           return true;
         }
@@ -103,7 +101,7 @@ angular.module('leGo', [])
       console.log("targetId drop target", $scope.dropTarget[targetId]);
       console.log("targetId drop from", $scope.dropTarget[from]);
 
-      if ($scope.isOccupied(from, targetId)){
+      if ($scope.isOccupied(blockId, from, targetId)){
         console.log("occupied");
         return;
       }
@@ -113,7 +111,11 @@ angular.module('leGo', [])
         // Sets item to move
         var item = $scope.dropTarget[from];
         // Clears the last square
-        $scope.dropTarget[from] = {};
+        var clearSquare = from;
+        for(var i = 0; i < item.pegs; i++){
+          $scope.dropTarget[clearSquare] = {};
+          clearSquare = $scope.incrementId(clearSquare);
+        }
       } else { // NEW BRICK!
         // We're making a new brick!
         // Sets item as the presets in the form
@@ -129,6 +131,7 @@ angular.module('leGo', [])
 
       for(var i = 0; i < item.pegs; i++){
         $scope.dropTarget[occupiedId].occupied = true;
+        $scope.dropTarget[occupiedId].id = item.id;
         occupiedId = $scope.incrementId(occupiedId);
       }
 
