@@ -75,7 +75,7 @@ angular.module('leGo', [])
       newId = Number(newId);
       newId ++;
       newId = "s" + newId;
-      console.log("new id ", newId);
+      // console.log("new id ", newId);
       return newId;
     }
 
@@ -83,7 +83,6 @@ angular.module('leGo', [])
     $scope.isOccupied = function(blockId, from, target){
       var fillspace;
       $scope.dropTarget[from] == undefined ? fillspace = $scope.width : fillspace = $scope.dropTarget[from].pegs;
-      console.log("fillspace", fillspace);
       var checkSquare = target;
       for(var i = 0; i < fillspace; i++){
         console.log("checking ", checkSquare);
@@ -95,13 +94,17 @@ angular.module('leGo', [])
       }
     }
 
+    $scope.clearSquares = function(from){
+      var item = $scope.dropTarget[from];
+      var clearSquare = from;
+      for(var i = 0; i < item.pegs; i++){
+        $scope.dropTarget[clearSquare] = {};
+        clearSquare = $scope.incrementId(clearSquare);
+      }
+    }
+
     $scope.moveToBox = function(blockId, from, targetId) {
       // Checks to see if that space is already filled. If so, don't move brick.
-      console.log("blockID, ", blockId);
-      console.log("from", from);
-      console.log("targetID", targetId);
-      console.log("targetId drop target", $scope.dropTarget[targetId]);
-      console.log("targetId drop from", $scope.dropTarget[from]);
 
       if (targetId != "trash"){
         if ($scope.isOccupied(blockId, from, targetId)){
@@ -114,12 +117,7 @@ angular.module('leGo', [])
       if( from != "origin" ){
         // Sets item to move
         var item = $scope.dropTarget[from];
-        // Clears the last square
-        var clearSquare = from;
-        for(var i = 0; i < item.pegs; i++){
-          $scope.dropTarget[clearSquare] = {};
-          clearSquare = $scope.incrementId(clearSquare);
-        }
+        $scope.clearSquares(from);
       } else { // NEW BRICK!
         // We're making a new brick!
         // Sets item as the presets in the form
@@ -129,8 +127,11 @@ angular.module('leGo', [])
 
         $scope.brickCount ++;
       }
+
       // Moves item
       $scope.dropTarget[targetId] = item;
+      console.log("item", item);
+      console.log("new spot", $scope.dropTarget[targetId]);
       var occupiedId = targetId;
 
       if(targetId != "trash"){
