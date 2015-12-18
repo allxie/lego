@@ -13,7 +13,7 @@
 
 angular.module('leGo', [])
 	.controller('MainCtrl', ['$scope', '$window', function($scope, $window, $index){
-    $scope.singleWidth = 46;
+    $scope.singleWidth = 46; //Change this to change width of blocks
     $scope.pixleWidth = $scope.singleWidth + "px";
 		$scope.brickCount = 1; // Increments later to make unique lego ID
     // Options for color dropdown
