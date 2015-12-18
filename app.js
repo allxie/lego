@@ -37,6 +37,8 @@ angular.module('leGo', [])
        value: 'purple'
     }];
 
+    $scope.trashDefault = {"id": "trash", "label" : "Delete", "color" : "white", "pegs" : 2, "width": ($scope.singleWidth * 2) + "px", "occupied": false};
+
     // Object holds each square and keeps track of where each brick is
 		window.dropTarget = $scope.dropTarget = {};
 
@@ -59,7 +61,7 @@ angular.module('leGo', [])
         $scope.dropTarget[idTitle] = {};
 
       }
-      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete", "pegs" : 2, "width": ($scope.singleWidth * 2) + "px"};
+      $scope.dropTarget["trash"] = $scope.trashDefault;
 
     }
 
@@ -101,9 +103,11 @@ angular.module('leGo', [])
       console.log("targetId drop target", $scope.dropTarget[targetId]);
       console.log("targetId drop from", $scope.dropTarget[from]);
 
-      if ($scope.isOccupied(blockId, from, targetId)){
-        console.log("occupied");
-        return;
+      if (targetId != "trash"){
+        if ($scope.isOccupied(blockId, from, targetId)){
+          console.log("occupied");
+          return;
+        }
       }
 
       // Checks to see if we're pulling from the board or origin
@@ -129,14 +133,16 @@ angular.module('leGo', [])
       $scope.dropTarget[targetId] = item;
       var occupiedId = targetId;
 
-      for(var i = 0; i < item.pegs; i++){
-        $scope.dropTarget[occupiedId].occupied = true;
-        $scope.dropTarget[occupiedId].id = item.id;
-        occupiedId = $scope.incrementId(occupiedId);
+      if(targetId != "trash"){
+        for(var i = 0; i < item.pegs; i++){
+          $scope.dropTarget[occupiedId].occupied = true;
+          $scope.dropTarget[occupiedId].id = item.id;
+          occupiedId = $scope.incrementId(occupiedId);
+        }
       }
 
       // Empties the trash.
-      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete", "pegs" : 2, "width": ($scope.singleWidth * 2) + "px", "occupied": false};
+      $scope.dropTarget["trash"] = $scope.trashDefault;
 
       $scope.$apply(); //maybe learn to use this?
     };
