@@ -66,16 +66,48 @@ angular.module('leGo', [])
     }
 
     $scope.getPegs = function(n){
-      console.log("pegs", n);
+      // console.log("pegs", n);
      return new Array(n);
     };
 
+    $scope.incrementId = function(id){
+      newId = id.substring(1);
+      newId = Number(newId);
+      newId ++;
+      newId = "s" + newId;
+      console.log("new id ", newId);
+      return newId;
+    }
+
+    // Checks to see if the squares the new box will take up are occupied
+    $scope.isOccupied = function(from, target){
+      var fillspace;
+      $scope.dropTarget[from] == undefined ? fillspace = $scope.width : fillspace = $scope.dropTarget[from].pegs;
+      console.log("fillspace", fillspace);
+      var checkSquare = target;
+      for(var i = 0; i < fillspace; i++){
+        console.log("checking ", checkSquare);
+        if($scope.dropTarget[checkSquare].occupied) {
+          console.log("occupado");
+          return true;
+        }
+        checkSquare = $scope.incrementId(checkSquare);
+      }
+    }
 
     $scope.moveToBox = function(blockId, from, targetId) {
       // Checks to see if that space is already filled. If so, don't move brick.
-      if($scope.dropTarget[targetId].color && targetId != "trash") {
-        return false;
+      console.log("blockID, ", blockId);
+      console.log("from", from);
+      console.log("targetID", targetId);
+      console.log("targetId drop target", $scope.dropTarget[targetId]);
+      console.log("targetId drop from", $scope.dropTarget[from]);
+
+      if ($scope.isOccupied(from, targetId)){
+        console.log("occupied");
+        return;
       }
+
       // Checks to see if we're pulling from the board or origin
       if( from != "origin" ){
         // Sets item to move
@@ -87,15 +119,21 @@ angular.module('leGo', [])
         // Sets item as the presets in the form
         var blockWidth = ($scope.width * $scope.singleWidth) + "px";
         console.log(blockWidth);
-        var item = {id: $scope.brickCount, color: $scope.color.value, width: blockWidth, pegs: $scope.width, height: $scope.height};
+        var item = {id: $scope.brickCount, color: $scope.color.value, width: blockWidth, pegs: $scope.width, height: $scope.height, occupied: true};
 
         $scope.brickCount ++;
       }
       // Moves item
       $scope.dropTarget[targetId] = item;
+      var occupiedId = targetId;
+
+      for(var i = 0; i < item.pegs; i++){
+        $scope.dropTarget[occupiedId].occupied = true;
+        occupiedId = $scope.incrementId(occupiedId);
+      }
 
       // Empties the trash.
-      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete", "pegs" : 2, "width": ($scope.singleWidth * 2) + "px"};
+      $scope.dropTarget["trash"] = {"id": "trash", "label" : "Delete", "pegs" : 2, "width": ($scope.singleWidth * 2) + "px", "occupied": false};
 
       $scope.$apply(); //maybe learn to use this?
     };
