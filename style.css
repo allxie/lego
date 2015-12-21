@@ -20,7 +20,7 @@
     width: 96px;
     height: 46px;
 }
-.right-peg, .left-peg{
+.origin-peg, .left-peg{
     z-index: -1; /*Makes pegs go behind bricks above*/
     position: relative;
     top: -13px;

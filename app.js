@@ -8,6 +8,8 @@
 //  * Restrict grabbing if a brick is surrounded.
 //  * Size grid with a dial
 //  * Be able to hilight and drag structures of blocks
+//  * Color box on hover
+//  * Actually pick up brick
 
 
 
@@ -17,6 +19,7 @@ angular.module('leGo', [])
     $scope.pixleWidth = $scope.singleWidth + "px";
 		$scope.brickCount = 1; // Increments later to make unique lego ID
     // Options for color dropdown
+    $scope.bricksAccross;
     $scope.colorOptions = [{
        name: 'Red',
        value: 'red'
@@ -47,6 +50,7 @@ angular.module('leGo', [])
     $scope.$watch(function(){
       var height = $window.innerHeight - 10;
       var width = $window.innerWidth - 10;
+      $scope.bricksAccross = Math.floor(width / ($scope.singleWidth));
       var blockCount = (Math.floor(width / ($scope.singleWidth))) * (Math.floor(height/46));
       //tells us the number of blocks for that size screen
        return blockCount;
@@ -104,6 +108,10 @@ angular.module('leGo', [])
     }
 
     $scope.moveToBox = function(blockId, from, targetId) {
+
+      // Validate width
+        $scope.width > 0? $scope.width = $scope.width : $scope.width = 1;
+        $scope.width > $scope.bricksAccross ? $scope.width = $scope.bricksAccross: $scope.width = $scope.width;
       // Checks to see if that space is already filled. If so, don't move brick.
 
       if (targetId != "trash"){
@@ -124,6 +132,7 @@ angular.module('leGo', [])
         var blockWidth = ($scope.width * $scope.singleWidth) + "px";
         console.log(blockWidth);
         var item = {id: $scope.brickCount, color: $scope.color.value, width: blockWidth, pegs: $scope.width, height: $scope.height, occupied: true};
+        console.log("item", item);
 
         $scope.brickCount ++;
       }
