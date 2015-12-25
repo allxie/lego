@@ -21,8 +21,8 @@
 		<div id="new-brick-form">
 
 			<h2 id="new-lego"> Make A New Lego! </h2>
-			<input ng-model="width" placeholder="width" type="number">
-			<input ng-model="brickHeight" placeholder="height" type="number">
+			<input ng-model="width" ng-init="width = 2" type="number">
+			<!-- <input ng-model="brickHeight" placeholder="height" type="number"> -->
 
 			<select name="colorSelect" ng-init="color = colorOptions[1]" ng-model="color" ng-options="option.name for option in colorOptions">
 			</select>
@@ -31,9 +31,9 @@
 			<!-- Brick Origin -->
 			<div id="origin" class="dropbox" slot="true">
 	            <div class="item" itemid="{{origin.id}}" brick="true">
-	            	<div class="left-peg peg" style="background-color:{{color.value}}"></div>
-	            	<div class="right-peg peg" style="background-color:{{color.value}}"></div>
-	            	<div class="block" style="background-color:{{color.value}}"></div>
+	            	<div ng-repeat="t in getPegs(width) track by $index" class="left-peg peg" style="background-color:{{color.value}}"></div>
+	            	<!-- <div class="right-peg peg" style="background-color:{{color.value}}"></div> -->
+	            	<div class="block" style="background-color:{{color.value}}; width:{{width * singleWidth}}px"></div>
 	            </div>
 	        </div>
 <!-- </form> -->
@@ -42,11 +42,9 @@
         <!-- usage of the DropTarget directive -->
         <div id="flex_container">
 	        <div ng-repeat="(key, item) in dropTarget">
-		        <div id="{{key}}" class="dropbox" slot="true">
+		        <div id="{{key}}" style="width: {{singleWidth}}px" class="dropbox" slot="true">
 		            	<div class="item" itemid="{{item.id}}" brick="true">
-		      				<span ng-show="item.id">
-			            		<!-- <div ng-repeat="t in getPegs(item.pegs) track by $index" class="left-peg" style="background-color:{{item.color}}"></div> -->
-			            		<!-- <div class="right-peg" style="background-color:{{item.color}}"></div> -->
+		      				<span ng-show="item.color">
 			            		<div class="block" style="background-color:{{item.color}}; width:{{item.width}}">
 			            			<div ng-repeat="t in getPegs(item.pegs) track by $index" class="left-peg" style="background-color:{{item.color}}"></div>
 			            			{{item.label}}
