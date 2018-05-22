@@ -1,3 +1,6 @@
+//TODO: remove unnecessary scope variables. Anything not accessed by the dom should be const function.
+// also, remove those from this file. Make a util. 
+
 const mainController = function($scope, $window, $index){
     $scope.singleWidth = 46; //Change this to change width of blocks
     const brickHeight = 46;

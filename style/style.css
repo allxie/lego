@@ -56,12 +56,16 @@ input{
     z-index: 1000;
 }
 /*END FORM STYLES*/
+
 /* -------------------- */
+
 /*Background styles*/
 .dropbox {
     z-index: -1;
-    /*border: 1px solid black;*/
+    width: 96px;
+    height: 46px;
 }
+
 #flex_container{
     margin-top: 20px;
     width: 100%;
@@ -69,54 +73,3 @@ input{
     flex-wrap: wrap;
 }
 /* ^ End Background styles ^ */
-/* -------------------- */
-/* BRICK STYLES */
-#items {
-    left: 222px;
-}
-.origin-peg, .left-peg{
-    z-index: -1; /*Makes pegs go behind bricks above*/
-    position: relative;
-    top: -13px;
-    display: inline;
-    border-right: 3px solid black;
-    border-left: 6px solid black;
-    border-top: 1px solid black;
-    width: 17px;
-    height: 11px;
-    margin-right: 10px;
-    margin-left: 10px;
-
-}
-.right-peg{
-    float: right;
-}
-.left-peg{
-    float: left;
-
-}
-div.item {
-    float: left;
-    /*width: 94px;*/
-    min-height: 44px;
-    /*border: 2px solid rgb(5,161,245);*/
-    /*margin: 10px;*/
-    /*border: 1px solid black;*/
-    cursor: pointer;
-    font-weight: bold;
-}
-.block{
-    /*width: 96px;*/
-    min-height: 44px;
-    text-align: center;
-    border: 1px solid black;
-    z-index: 1000;
-}
-
-#items, .dropbox {
-    /*display: inline-block;*/
-    /*float: left;*/
-    /*position: absolute;*/
-    width: 96px;
-    height: 46px;
-}

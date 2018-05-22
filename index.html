@@ -9,7 +9,11 @@
 	<script src="constants/trash.js"></script>
 	<script src="controllers/mainCtrl.js"></script>
 	<script src="app.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="style/brick.css">
+	<link rel="stylesheet" type="text/css" href="style/form.css">
+
+
 	<link rel="stylesheet" type="text/css" href="semantic/src/semantic.less">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 
@@ -46,10 +50,16 @@
 
 			<!-- Brick Origin TODO: add onhover instructions-->
 			<div class="form-element" id="origin" class="dropbox" slot="true">
-	            <div class="item" itemid="{{origin.id}}" brick="true">
-	            	<div ng-repeat="t in getPegs(width) track by $index" class="left-peg peg" style="background-color:{{color.value}}"></div>
-	            	<!-- <div class="right-peg peg" style="background-color:{{color.value}}"></div> -->
-	            	<div class="block" style="background-color:{{color.value}}; width:{{width * singleWidth}}px"></div>
+	            <div class="brick" itemid="{{origin.id}}" brick="true">
+	            	<div
+	            		class="left-peg peg"
+	            		ng-repeat="t in getPegs(width) track by $index"
+	            		style="background-color:{{color.value}}"
+	            	></div>
+	            	<div
+	            		class="block"
+	            		style="background-color:{{color.value}}; width:{{width * singleWidth}}px"
+	            	></div>
 	            </div>
 	        </div>
 <!-- </form> -->
@@ -57,16 +67,23 @@
 
         <!-- usage of the DropTarget/grid directive -->
         <div id="flex_container">
-	        <div ng-repeat="(key, item) in grid">
+	        <div ng-repeat="(key, square) in grid">
 		        <div id="{{key}}" style="width: {{singleWidth}}px" class="dropbox" slot="true">
-		            	<div class="item" itemid="{{item.id}}" brick="true">
-		      				<span ng-show="item.color">
-			            		<div class="block" style="background-color:{{item.color}}; width:{{item.width}}">
-			            			<div ng-repeat="t in getPegs(item.pegs) track by $index" class="left-peg" style="background-color:{{item.color}}"></div>
-			            			{{item.label}}
-			            		</div>
-			            	</span>
-		            	</div>
+	            	<div class="brick" itemid="{{square.id}}" brick="true">
+	      				<span ng-show="square.color">
+		            		<div
+		            			class="block"
+		            			style="background-color:{{square.color}}; width:{{square.width}}"
+		            		>
+		            			<div
+		            				class="left-peg"
+		            				style="background-color:{{square.color}}"
+		            				ng-repeat="t in getPegs(square.pegs) track by $index"
+		            			></div>
+		            			{{square.label}}
+		            		</div>
+		            	</span>
+	            	</div>
 		        </div>
 		    </div>
 		</div>

@@ -1,0 +1,47 @@
+/*FORM STYLES*/
+#new-brick-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: auto;
+    background-color: #2c3e50;
+    color: white;
+    display: inline-block;
+    position: absolute;
+    padding: 20px;
+    /*z-index: -1;*/
+}
+.form-element{
+    padding: 10px;
+}
+#color-dropdown{
+    border-radius: 0px;
+}
+input{
+    width: 30px;
+}
+#color-picker-label{
+    margin-left:10px;
+}
+#new-brick-title{
+    font-size: 20px;
+    margin-top: 0px;
+}
+#create{
+    border: 0px;
+    border-radius: 0px;
+    background-color: orange;
+    z-index: 100;
+}
+#origin{
+    z-index: 1000;
+    margin-top: 20px;
+}
+
+#origin .peg{
+    z-index: 1000;
+}
+/*END FORM STYLES*/
