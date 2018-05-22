@@ -5,9 +5,13 @@
 	<script src="angular.js"></script>
 	<script src="directives/brick.js"></script>
 	<script src="directives/slot.js"></script>
+	<script src="constants/colors.js"></script>
+	<script src="constants/trash.js"></script>
+	<script src="controllers/mainCtrl.js"></script>
 	<script src="app.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="semantic/src/semantic.less">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 
 
 
@@ -20,16 +24,27 @@
 		<!-- <form id="new-brick-form"> -->
 		<div id="new-brick-form">
 
-			<h2 id="new-lego"> Make A New Lego! </h2>
-			<input ng-model="width" ng-init="width = 2" type="number">
-			<!-- <input ng-model="brickHeight" placeholder="height" type="number"> -->
+			<div id="new-brick-title" class="form-element"> 	New Brick!
+			</div>
+			<div class="form-element">
+				Pegs
+				<input ng-model="width" ng-init="width = 2" type="number">
 
-			<select name="colorSelect" ng-init="color = colorOptions[1]" ng-model="color" ng-options="option.name for option in colorOptions">
-			</select>
+					<span id="color-picker-label">Color</span>
+					<select
+						id="color-dropdown"
+						name="colorSelect"
+						ng-init="color = colorOptions[1]"
+						ng-model="color"
+						ng-options="option.name for option in colorOptions"
+					></select>
+
+			</div>
+			<!-- TODO: brick height<input ng-model="brickHeight" placeholder="height" type="number"> -->
 
 
-			<!-- Brick Origin -->
-			<div id="origin" class="dropbox" slot="true">
+			<!-- Brick Origin TODO: add onhover instructions-->
+			<div class="form-element" id="origin" class="dropbox" slot="true">
 	            <div class="item" itemid="{{origin.id}}" brick="true">
 	            	<div ng-repeat="t in getPegs(width) track by $index" class="left-peg peg" style="background-color:{{color.value}}"></div>
 	            	<!-- <div class="right-peg peg" style="background-color:{{color.value}}"></div> -->
