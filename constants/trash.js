@@ -1,4 +1,4 @@
-var trash = function(singleWidth){
+const generateTrash = function(singleWidth){
 return { // this is the data for the trash brick
       "id": "trash",
       "label" : "Delete",
@@ -7,3 +7,5 @@ return { // this is the data for the trash brick
       "width": (singleWidth * 2) + "px", "occupied": false
     }
 };
+
+const TRASH = "trash";
