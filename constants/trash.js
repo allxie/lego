@@ -1,5 +1,5 @@
 const generateTrash = function(singleWidth){
-return { // this is the data for the trash brick
+	return { // this is the data for the trash brick
       "id": "trash",
       "label" : "Delete",
       "color" : "white",

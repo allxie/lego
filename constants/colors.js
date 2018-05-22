@@ -1,4 +1,4 @@
-var colors = [{
+const colors = [{
        name: 'Red',
        value: 'red'
     }, {
