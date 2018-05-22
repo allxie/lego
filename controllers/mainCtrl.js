@@ -1,4 +1,4 @@
-var mainController = function($scope, $window, $index){
+const mainController = function($scope, $window, $index){
     $scope.singleWidth = 46; //Change this to change width of blocks
     $scope.pixleWidth = $scope.singleWidth + "px";
 	$scope.brickCount = 1; // Increments later to make unique lego ID
@@ -14,10 +14,10 @@ var mainController = function($scope, $window, $index){
     //Figures out the width of the screen
     //in order to fill it with the right number of slots
     $scope.$watch(function(){
-      var height = $window.innerHeight - 10;
-      var width = $window.innerWidth - 10;
+      let height = $window.innerHeight - 10;
+      let width = $window.innerWidth - 10;
       $scope.bricksAccross = Math.floor(width / ($scope.singleWidth));
-      var blockCount = (Math.floor(width / ($scope.singleWidth))) * (Math.floor(height/46));
+      let blockCount = (Math.floor(width / ($scope.singleWidth))) * (Math.floor(height/46));
       //tells us the number of blocks for that size screen
        return blockCount;
     }, function(value) {
@@ -26,8 +26,8 @@ var mainController = function($scope, $window, $index){
     // Fills the screen with the right number of slots
     //maybe fix this. Fix redraw
     $scope.initTable = function(blockCount){
-      for(i = 2; i <= blockCount - 1; i++){
-        var idTitle = "s" + i;
+      for(let i = 2; i <= blockCount - 1; i++){
+        let idTitle = "s" + i;
         $scope.dropTarget[idTitle] = {};
 
       }
@@ -36,8 +36,7 @@ var mainController = function($scope, $window, $index){
     }
 
     $scope.getPegs = function(n){
-      // console.log("pegs", n);
-     return new Array(n);
+      return new Array(n);
     };
 
     $scope.incrementId = function(id){
@@ -45,73 +44,72 @@ var mainController = function($scope, $window, $index){
       newId = Number(newId);
       newId ++;
       newId = "s" + newId;
-      // console.log("new id ", newId);
       return newId;
     }
 
     // Checks to see if the squares the new box will take up are occupied
     $scope.isOccupied = function(blockId, from, target){
-      var fillspace = $scope.dropTarget[from] == undefined ? $scope.width : $scope.dropTarget[from].pegs;
-      var checkSquare = target;
-      for(var i = 0; i < fillspace; i++){
-        console.log("checking ", checkSquare);
+      let fillspace = $scope.dropTarget[from] == undefined ? $scope.width : $scope.dropTarget[from].pegs;
+      let checkSquare = target;
+      for(let i = 0; i < fillspace; i++){
         if($scope.dropTarget[checkSquare].occupied && ($scope.dropTarget[checkSquare].id != blockId)) {
-          console.log("occupado");
           return true;
         }
         checkSquare = $scope.incrementId(checkSquare);
       }
     }
 
-    $scope.clearSquares = function(from){
-      var item = $scope.dropTarget[from];
-      var clearSquare = from;
-      for(var i = 0; i < item.pegs; i++){
-        $scope.dropTarget[clearSquare] = {};
-        clearSquare = $scope.incrementId(clearSquare);
+    $scope.clearSquares = function(clearSquareId){
+      const brick = $scope.dropTarget[clearSquareId];
+      for(let i = 0; i < brick.pegs; i++){
+        $scope.dropTarget[clearSquareId] = {};
+        clearSquareId = $scope.incrementId(clearSquareId);
       }
     }
 
-    $scope.moveToBox = function(blockId, from, targetId) {
+    $scope.makeNewBrick = function(){
+        $scope.brickCount ++;
+        const blockWidth = ($scope.width * $scope.singleWidth) + "px";
+        return {
+        	id: $scope.brickCount,
+        	color: $scope.color.value,
+        	width: blockWidth,
+        	pegs: $scope.width,
+        	height: $scope.height,
+        	occupied: true
+        };
 
+    }
+
+    $scope.moveToBox = function(blockId, from, targetId) {
+      let brick = null;
       // Validate width
         $scope.width > 0? $scope.width = $scope.width : $scope.width = 1;
         $scope.width > $scope.bricksAccross ? $scope.width = $scope.bricksAccross: $scope.width = $scope.width;
       // Checks to see if that space is already filled. If so, don't move brick.
 
-      if (targetId != "trash"){
-        if ($scope.isOccupied(blockId, from, targetId)){
-          console.log("occupied");
-          return;
-        }
+      if (targetId !== "trash"){
+        if ($scope.isOccupied(blockId, from, targetId)) return;
       }
 
       // Checks to see if we're pulling from the board or origin
-      if( from != "origin" ){
+      if( from === "origin" ){
+        brick = $scope.makeNewBrick();
+      } else {
         // Sets item to move
-        var item = $scope.dropTarget[from];
+        brick = $scope.dropTarget[from];
         $scope.clearSquares(from);
-      } else { // NEW BRICK!
-        // We're making a new brick!
-        // Sets item as the presets in the form
-        var blockWidth = ($scope.width * $scope.singleWidth) + "px";
-        console.log(blockWidth);
-        var item = {id: $scope.brickCount, color: $scope.color.value, width: blockWidth, pegs: $scope.width, height: $scope.height, occupied: true};
-        console.log("item", item);
-
-        $scope.brickCount ++;
       }
 
       // Moves item
-      $scope.dropTarget[targetId] = item;
-      console.log("item", item);
-      console.log("new spot", $scope.dropTarget[targetId]);
-      var occupiedId = targetId;
+      $scope.dropTarget[targetId] = brick;
+      let occupiedId = targetId;
 
-      if(targetId != "trash"){
-        for(var i = 0; i < item.pegs; i++){
+      //sets the appropriate squares to occupied
+      if(targetId !== "trash"){
+        for(let i = 0; i < brick.pegs; i++){
           $scope.dropTarget[occupiedId].occupied = true;
-          $scope.dropTarget[occupiedId].id = item.id;
+          $scope.dropTarget[occupiedId].id = brick.id;
           occupiedId = $scope.incrementId(occupiedId);
         }
       }
