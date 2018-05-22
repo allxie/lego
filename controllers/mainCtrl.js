@@ -1,9 +1,8 @@
 const mainController = function($scope, $window, $index){
     $scope.singleWidth = 46; //Change this to change width of blocks
-    $scope.pixleWidth = $scope.singleWidth + "px";
-	  $scope.brickCount = 1; // Increments later to make unique lego ID
-    // Options for color dropdown
-    $scope.bricksAccross;
+    const brickHeight = 46;
+    let bricksAcross;
+	  let brickSeqence = 1; // Increments later to make unique lego ID
     $scope.colorOptions = colors;
 
     $scope.trashDefault = generateTrash($scope.singleWidth);
@@ -14,10 +13,10 @@ const mainController = function($scope, $window, $index){
     //Figures out the width of the screen
     //in order to fill it with the right number of slots
     $scope.$watch(function(){
-      let height = $window.innerHeight - 10;
-      let width = $window.innerWidth - 10;
-      $scope.bricksAccross = Math.floor(width / ($scope.singleWidth));
-      let blockCount = (Math.floor(width / ($scope.singleWidth))) * (Math.floor(height/46));
+      let windowHeight = $window.innerHeight - 10;
+      let windowWidth = $window.innerWidth - 10;
+      bricksAcross = Math.floor(windowWidth / ($scope.singleWidth));
+      let blockCount = (Math.floor(windowWidth / ($scope.singleWidth))) * (Math.floor(windowHeight/brickHeight));
       //tells us the number of blocks for that size screen
        return blockCount;
     }, function(value) {
@@ -47,7 +46,7 @@ const mainController = function($scope, $window, $index){
     }
 
     // Checks to see if the squares the new box will take up are occupied
-    $scope.isOccupied = function(blockId, from, target){
+    const isOccupied = function(blockId, from, target){
     	if (target === TRASH) return false;
       let fillspace = $scope.grid[from] == undefined ? $scope.width : $scope.grid[from].pegs;
       let checkSquare = target;
@@ -56,6 +55,15 @@ const mainController = function($scope, $window, $index){
           return true;
         }
         checkSquare = $scope.incrementId(checkSquare);
+      }
+    }
+
+    const markTargetsOccupied = function(targetId, brick){
+    	let occupiedId = targetId;
+      for(let i = 0; i < brick.pegs; i++){
+        $scope.grid[occupiedId].occupied = true;
+        $scope.grid[occupiedId].id = brick.id;
+        occupiedId = $scope.incrementId(occupiedId);
       }
     }
 
@@ -68,10 +76,10 @@ const mainController = function($scope, $window, $index){
     }
 
     $scope.makeNewBrick = function(){
-        $scope.brickCount ++;
+        brickSeqence ++;
         const blockWidth = ($scope.width * $scope.singleWidth) + "px";
         return {
-        	id: $scope.brickCount,
+        	id: brickSeqence,
         	color: $scope.color.value,
         	width: blockWidth,
         	pegs: $scope.width,
@@ -82,12 +90,12 @@ const mainController = function($scope, $window, $index){
     }
 
     $scope.moveToBox = function(blockId, from, targetId) {
-      if ($scope.isOccupied(blockId, from, targetId)) return;
+      if (isOccupied(blockId, from, targetId)) return;
 
       let brick = null;
       // Validate width -- todo: what?
       $scope.width = $scope.width > 0 ? $scope.width : 1;
-      $scope.width = $scope.width > $scope.bricksAccross ? $scope.bricksAccross: $scope.width;
+      $scope.width = $scope.width > bricksAcross ? bricksAcross: $scope.width;
 
       // Checks to see if we're pulling from the board or origin
       if( from === "origin" ){
@@ -98,23 +106,10 @@ const mainController = function($scope, $window, $index){
         $scope.clearSquares(from);
       }
 
-      // Moves item
-      $scope.grid[targetId] = brick;
-      let occupiedId = targetId;
-
-      //sets the appropriate squares to occupied
       if(targetId !== TRASH){
-        for(let i = 0; i < brick.pegs; i++){
-          $scope.grid[occupiedId].occupied = true;
-          $scope.grid[occupiedId].id = brick.id;
-          occupiedId = $scope.incrementId(occupiedId);
-        }
+      	$scope.grid[targetId] = brick;
+      	markTargetsOccupied(targetId, brick)
       }
-
-			if(targetId === TRASH){
-    		// Empties the trash.
-        $scope.grid[TRASH] = $scope.trashDefault;
-    	}
 
       $scope.$apply(); //maybe learn to use this?
     };
