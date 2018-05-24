@@ -1,10 +1,10 @@
 //TODO: remove unnecessary scope variables. Anything not accessed by the dom should be const function.
-// also, remove those from this file. Make a util. 
+// also, remove those from this file. Make a util.
 
 const mainController = function($scope, $window, $index){
     $scope.singleWidth = 46; //Change this to change width of blocks
     const brickHeight = 46;
-    let bricksAcross;
+    $scope.bricksAcross;
 	  let brickSeqence = 1; // Increments later to make unique lego ID
     $scope.colorOptions = colors;
 
@@ -18,7 +18,7 @@ const mainController = function($scope, $window, $index){
     $scope.$watch(function(){
       let windowHeight = $window.innerHeight - 10;
       let windowWidth = $window.innerWidth - 10;
-      bricksAcross = Math.floor(windowWidth / ($scope.singleWidth));
+      $scope.bricksAcross = Math.floor(windowWidth / ($scope.singleWidth));
       let blockCount = (Math.floor(windowWidth / ($scope.singleWidth))) * (Math.floor(windowHeight/brickHeight));
       //tells us the number of blocks for that size screen
        return blockCount;
@@ -38,7 +38,6 @@ const mainController = function($scope, $window, $index){
     }
 
     $scope.getPegs = function(numPegs){
-    	if(numPegs < 1) numPegs = 1;
       return new Array(numPegs);
     };
 
@@ -51,7 +50,7 @@ const mainController = function($scope, $window, $index){
     // Checks to see if the squares the new box will take up are occupied
     const isOccupied = function(blockId, from, target){
     	if (target === TRASH) return false;
-      let fillspace = $scope.grid[from] == undefined ? $scope.width : $scope.grid[from].pegs;
+      let fillspace = !$scope.grid[from]? $scope.width : $scope.grid[from].pegs;
       let checkSquare = target;
       for(let i = 0; i < fillspace; i++){
         if($scope.grid[checkSquare].occupied && ($scope.grid[checkSquare].id != blockId)) {
@@ -70,7 +69,7 @@ const mainController = function($scope, $window, $index){
       }
     }
 
-    $scope.clearSquares = function(clearSquareId){
+    const clearSquares = function(clearSquareId){
       const brick = $scope.grid[clearSquareId];
       for(let i = 0; i < brick.pegs; i++){
         $scope.grid[clearSquareId] = {};
@@ -78,7 +77,7 @@ const mainController = function($scope, $window, $index){
       }
     }
 
-    $scope.makeNewBrick = function(){
+    const makeNewBrick = function(){
         brickSeqence ++;
         const blockWidth = ($scope.width * $scope.singleWidth) + "px";
         return {
@@ -94,19 +93,15 @@ const mainController = function($scope, $window, $index){
 
     $scope.moveToBox = function(blockId, from, targetId) {
       if (isOccupied(blockId, from, targetId)) return;
-
       let brick = null;
-      // Validate width -- todo: what?
-      $scope.width = $scope.width > 0 ? $scope.width : 1;
-      $scope.width = $scope.width > bricksAcross ? bricksAcross: $scope.width;
 
       // Checks to see if we're pulling from the board or origin
       if( from === "origin" ){
-        brick = $scope.makeNewBrick();
+        brick = makeNewBrick();
       } else {
         // Sets item to move
         brick = $scope.grid[from];
-        $scope.clearSquares(from);
+        clearSquares(from);
       }
 
       if(targetId !== TRASH){
@@ -116,6 +111,5 @@ const mainController = function($scope, $window, $index){
 
       $scope.$apply(); //maybe learn to use this?
     };
-
 }
 

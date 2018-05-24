@@ -30,7 +30,7 @@
 			</div>
 			<div class="form-element">
 				Pegs
-				<input ng-model="width" ng-init="width = 2" type="number">
+				<input ng-model="width" ng-init="width = 2" type="number" min="1" max="{{bricksAcross}}">
 
 					<span id="color-picker-label">Color</span>
 					<select
