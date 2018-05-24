@@ -1,0 +1,27 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+#main {
+    width: 1000px;
+    min-height: 200px;
+    position: relative;
+}
+
+/*Background styles*/
+.dropbox {
+    width: 96px;
+    height: 46px;
+}
+.dropbox:hover{
+    background-color: #dddddd;
+}
+
+#flex_container{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+/* ^ End Background styles ^ */
