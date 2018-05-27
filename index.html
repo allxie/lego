@@ -6,7 +6,8 @@
 	<script src="directives/brick.js"></script>
 	<script src="directives/slot.js"></script>
 	<script src="constants/colors.js"></script>
-	<script src="constants/trash.js"></script>
+	<script src="constants/systemBricks.js"></script>
+	<script src="scripts/gridUtils.js"></script>
 	<script src="controllers/mainCtrl.js"></script>
 	<script src="app.js"></script>
 	<link rel="stylesheet" type="text/css" href="style/style.css">
@@ -30,7 +31,7 @@
 			</div>
 			<div class="form-element">
 				Pegs
-				<input ng-model="width" ng-init="width = 2" type="number" min="1" max="{{bricksAcross}}">
+				<input ng-model="originWidth" ng-init="originWidth = 2" type="number" min="1" max="{{bricksAcross}}">
 
 					<span id="color-picker-label">Color</span>
 					<select
@@ -50,12 +51,12 @@
 	            <div class="brick" itemid="{{origin.id}}" brick="true">
 	            	<div
 	            		class="left-peg peg"
-	            		ng-repeat="t in getPegs(width) track by $index"
+	            		ng-repeat="t in getPegs(originWidth) track by $index"
 	            		style="background-color:{{color.value}}"
 	            	></div>
 	            	<div
 	            		class="block"
-	            		style="background-color:{{color.value}}; width:{{width * singleWidth}}px"
+	            		style="background-color:{{color.value}}; width:{{originWidth * singleWidth}}px"
 	            	></div>
 	            </div>
 	        </div>
@@ -65,7 +66,7 @@
         <div id="flex_container">
 	        <div ng-repeat="(key, square) in grid">
 		        <div id="{{key}}" style="width: {{singleWidth}}px" class="dropbox" slot="true">
-	            	<div class="brick" itemid="{{square.id}}" brick="true">
+	            	<div class="brick" brick="true">
 	      				<span ng-show="square.color">
 		            		<div
 		            			class="block"

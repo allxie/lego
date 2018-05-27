@@ -14,10 +14,6 @@
 
 
 angular.module('leGo', [])
-	.controller('MainCtrl', ['$scope', '$window', function($scope, $window, $index){
-      return mainController($scope, $window, $index)
-  }]) // end MainCtrl
-	.directive("brick", Brick)
-	.directive("slot", Slot);
-//// other controllers
-
+	.controller('MainCtrl', ['$scope', '$window', ($scope, $window, $index) => mainController($scope, $window, $index)])
+	.directive('brick', Brick)
+	.directive('slot', Slot);

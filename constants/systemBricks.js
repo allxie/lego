@@ -1,6 +1,6 @@
 const generateTrash = function(singleWidth){
 	return { // this is the data for the trash brick
-      id: "trash",
+      brick_id: "trash",
       label: "Delete",
       color: "white",
       pegCount: 2,
@@ -9,3 +9,5 @@ const generateTrash = function(singleWidth){
 };
 
 const TRASH = "trash";
+const ORIGIN = "origin";
+const SINGLE_WIDTH = 46;
