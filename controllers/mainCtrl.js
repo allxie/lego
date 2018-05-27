@@ -15,19 +15,17 @@ const mainController = function($scope, $window, $index){
 
     //Figures out the width of the screen
     //in order to fill it with the right number of slots
-    $scope.$watch(function(){
+    $scope.$watch(() => {
       let windowHeight = $window.innerHeight - 10;
       let windowWidth = $window.innerWidth - 10;
       $scope.bricksAcross = Math.floor(windowWidth / ($scope.singleWidth));
       let blockCount = (Math.floor(windowWidth / ($scope.singleWidth))) * (Math.floor(windowHeight/brickHeight));
       //tells us the number of blocks for that size screen
        return blockCount;
-    }, function(value) {
-        $scope.initTable(value);
-    });
+    }, (value) => initTable(value));
     // Fills the screen with the right number of slots
     //maybe fix this. Fix redraw
-    $scope.initTable = function(blockCount){
+    const initTable = (blockCount) => {
       for(let i = 2; i <= blockCount - 1; i++){
         let idTitle = "s" + i;
         $scope.grid[idTitle] = {};
@@ -37,20 +35,21 @@ const mainController = function($scope, $window, $index){
 
     }
 
-    $scope.getPegs = function(numPegs){
-      return new Array(numPegs);
+    //makes an array to ngRepeat over when displaying each brick
+    $scope.getPegs = (pegCount) => {
+      return new Array(pegCount);
     };
 
-    $scope.incrementId = function(id){
+    $scope.incrementId = (id) => {
       let newId = id.substring(1); // remove the s identifier
       newId = Number(newId) + 1;
       return "s" + newId;
     }
 
     // Checks to see if the squares the new box will take up are occupied
-    const isOccupied = function(blockId, from, target){
+    const isOccupied = (blockId, from, target) => {
     	if (target === TRASH) return false;
-      let fillspace = !$scope.grid[from]? $scope.width : $scope.grid[from].pegs;
+      let fillspace = !$scope.grid[from]? $scope.width : $scope.grid[from].pegCount;
       let checkSquare = target;
       for(let i = 0; i < fillspace; i++){
         if($scope.grid[checkSquare].occupied && ($scope.grid[checkSquare].id != blockId)) {
@@ -60,38 +59,38 @@ const mainController = function($scope, $window, $index){
       }
     }
 
-    const markTargetsOccupied = function(targetId, brick){
+    const markTargetsOccupied = (targetId, brick) => {
     	let occupiedId = targetId;
-      for(let i = 0; i < brick.pegs; i++){
+      for(let i = 0; i < brick.pegCount; i++){
         $scope.grid[occupiedId].occupied = true;
         $scope.grid[occupiedId].id = brick.id;
         occupiedId = $scope.incrementId(occupiedId);
       }
     }
 
-    const clearSquares = function(clearSquareId){
+    const clearSquares = (clearSquareId) => {
       const brick = $scope.grid[clearSquareId];
-      for(let i = 0; i < brick.pegs; i++){
+      for(let i = 0; i < brick.pegCount; i++){
         $scope.grid[clearSquareId] = {};
         clearSquareId = $scope.incrementId(clearSquareId);
       }
     }
 
-    const makeNewBrick = function(){
+    const makeNewBrick = () => {
         brickSeqence ++;
         const blockWidth = ($scope.width * $scope.singleWidth) + "px";
         return {
         	id: brickSeqence,
         	color: $scope.color.value,
         	width: blockWidth,
-        	pegs: $scope.width,
+        	pegCount: $scope.width,
         	height: $scope.height,
         	occupied: true
         };
 
     }
 
-    $scope.moveToBox = function(blockId, from, targetId) {
+    $scope.moveToBox = (blockId, from, targetId) => {
       if (isOccupied(blockId, from, targetId)) return;
       let brick = null;
 

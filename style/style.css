@@ -14,9 +14,6 @@ body{
     width: 96px;
     height: 46px;
 }
-.dropbox:hover{
-    background-color: #dddddd;
-}
 
 #flex_container{
     margin-top: 20px;
