@@ -47,7 +47,7 @@ const mainController = ($scope, $window, $index) => {
 
       // Checks to see if we're pulling from the board or origin
       if( fromGridId === ORIGIN ){
-        brick = makeNewBrick($scope.color.value, brickWidth, $scope.height, brickSequence);
+        brick = makeNewBrick($scope.color.value, brickWidth, brickHeight, brickSequence);
       } else {
         // Sets item to move
         brick = $scope.grid[fromGridId];

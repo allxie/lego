@@ -1,3 +1,5 @@
+const SINGLE_WIDTH = 46;
+
 const generateTrash = function(singleWidth){
 	return { // this is the data for the trash brick
       brick_id: "trash",
@@ -10,4 +12,3 @@ const generateTrash = function(singleWidth){
 
 const TRASH = "trash";
 const ORIGIN = "origin";
-const SINGLE_WIDTH = 46;

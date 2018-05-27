@@ -5,7 +5,7 @@ const makeNewBrick = (color, pegCount, height, brickSequence) => {
     color,
     pegCount,
     height,
-  	id: brickSequence,
+  	brickId: brickSequence,
   	width: blockWidth,
   	occupied: true
   };
@@ -25,11 +25,13 @@ const gridId = (num) => `s${num}`;
 
 // Checks to see if the squares the new box will take up are occupied
 const isOccupied = ({fromGridId, targetGridId, brickWidth, grid}) => {
+  //TODO: make bricks be able to move right.
   if (targetGridId === TRASH) return false;
   let checkSquare = targetGridId;
   for(let i = 0; i < brickWidth; i++){
-    // TODO: add a check to see if it's the same brick
-    if(grid[checkSquare].occupied) return true;
+    if(!grid[checkSquare] || !grid[fromGridId]) return false;
+    const isSameBrick = grid[checkSquare].brickId === grid[fromGridId].brickId;
+    if(grid[checkSquare].occupied && !isSameBrick) return true;
     checkSquare = incrementGridId(checkSquare);
   }
 }
@@ -38,7 +40,7 @@ const markTargetsOccupied = ({targetGridId, brick, grid}) => {
   let occupiedId = targetGridId;
   for(let i = 0; i < brick.pegCount; i++){
     grid[occupiedId].occupied = true;
-    grid[occupiedId].brick_id = brick.brick_id;
+    grid[occupiedId].brickId = brick.brickId;
     occupiedId = incrementGridId(occupiedId);
   }
 }
