@@ -1,4 +1,6 @@
 const SINGLE_WIDTH = 46;
+const BRICK_HEIGHT = 46;
+
 
 const generateTrash = function(singleWidth){
 	return { // this is the data for the trash brick

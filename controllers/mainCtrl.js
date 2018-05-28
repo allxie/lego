@@ -5,8 +5,7 @@ const mainController = ($scope, $window, $index) => {
 	  $scope.colorOptions = colors;
     $scope.singleWidth = SINGLE_WIDTH; //Change this to change width of blocks
     $scope.bricksAcross;
-    const brickHeight = 46;
-	  let brickSequence = 1; // Increments later to make unique lego ID
+	  let brickSequence = {brickId: 0}; // Increments later to make unique lego ID
 
     // Object holds each square and keeps track of where each brick is
 	  window.grid = $scope.grid = {};
@@ -17,7 +16,7 @@ const mainController = ($scope, $window, $index) => {
       let windowHeight = $window.innerHeight - 10;
       let windowWidth = $window.innerWidth - 10;
       $scope.bricksAcross = Math.floor(windowWidth / (SINGLE_WIDTH));
-      let slotCount = (Math.floor(windowWidth / (SINGLE_WIDTH))) * (Math.floor(windowHeight/brickHeight));
+      let slotCount = (Math.floor(windowWidth / (SINGLE_WIDTH))) * (Math.floor(windowHeight/BRICK_HEIGHT));
       //tells us the number of blocks for that size screen
        return slotCount;
     }, (slotCount) => initTable(slotCount));
@@ -47,7 +46,7 @@ const mainController = ($scope, $window, $index) => {
 
       // Checks to see if we're pulling from the board or origin
       if( fromGridId === ORIGIN ){
-        brick = makeNewBrick($scope.color.value, brickWidth, brickHeight, brickSequence);
+        brick = makeNewBrick($scope.color.value, brickWidth, brickSequence);
       } else {
         // Sets item to move
         brick = $scope.grid[fromGridId];

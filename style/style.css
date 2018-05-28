@@ -3,15 +3,8 @@ body{
     font-weight: 300;
 }
 
-#main {
-    width: 1000px;
-    min-height: 200px;
-    position: relative;
-}
-
 /*Background styles*/
 .dropbox {
-    width: 96px;
     height: 46px;
 }
 

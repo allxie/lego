@@ -65,12 +65,17 @@
         <!-- usage of the DropTarget/grid directive -->
         <div id="flex_container">
 	        <div ng-repeat="(key, square) in grid">
-		        <div id="{{key}}" style="width: {{singleWidth}}px" class="dropbox" slot="true">
+		        <div
+		        	id="{{key}}"
+		        	style="width: {{singleWidth}}px"
+		        	class="dropbox"
+		        	slot="true"
+		        >
 	            	<div class="brick" brick="true">
 	      				<span ng-show="square.color">
 		            		<div
 		            			class="block"
-		            			style="background-color:{{square.color}}; width:{{square.width}}"
+		            			style="background-color:{{square.color}}; width:{{square.width}};"
 		            		>
 		            			<div
 		            				class="left-peg"
